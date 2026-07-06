@@ -4,6 +4,149 @@ All notable changes to the Kazene Wuxing Field Protocol will be documented in th
 
 The project is currently in an experimental pre-release stage.
 
+## [0.4.0-candidate] - 2026-07-06
+
+### Added
+
+* Yajirobe Regulation Record specification.
+* JSON Schema for decentralized oscillation regulation.
+* YAML example showing suppression of premature reverse transition.
+* Oscillation axis from strong Yin to strong Yang.
+* Preferred oscillation band.
+* Soft excursion limits.
+* Excursion states:
+
+  * within preferred band,
+  * soft excursion,
+  * hard excursion.
+* Oscillation direction declaration.
+* Oscillation velocity declaration.
+* Hysteresis policy:
+
+  * entry score,
+  * release score.
+* Cooldown period.
+* Minimum formation dwell time.
+* Maximum excursion duration.
+* Recovery force.
+* Pressure decay policy:
+
+  * none,
+  * linear,
+  * exponential.
+* Pressure half-life declaration.
+* Transition rate limiting:
+
+  * observation window,
+  * maximum transition count.
+* Formation history record:
+
+  * current formation,
+  * previous formation,
+  * current formation start time,
+  * latest transition time,
+  * recent transition count.
+* Regulation actions:
+
+  * hold,
+  * allow transition,
+  * suppress transition,
+  * force recovery,
+  * emergency override.
+* Emergency Override structure:
+
+  * activation state,
+  * reason,
+  * expiration,
+  * Human Gate requirement.
+* Regulation Trace requirement.
+* Extended custom validation for:
+
+  * balance band ordering,
+  * preferred and soft limit containment,
+  * excursion status consistency,
+  * hysteresis threshold ordering,
+  * transition rate limit consistency,
+  * emergency override requirements,
+  * regulation status consistency.
+* Yajirobe Regulation Layer documentation.
+
+### Design Position
+
+v0.4 introduces restorative regulation without attempting to freeze the collective.
+
+The protocol assumes that healthy AI agent collectives may oscillate between:
+
+* concentration and distribution,
+* activation and rest,
+* synthesis and exploration,
+* connection and separation.
+
+The objective is not permanent equilibrium.
+
+The objective is bounded and recoverable motion.
+
+### Yajirobe Principle
+
+A stable collective is not necessarily motionless.
+
+It may lean toward Yin.
+
+It may lean toward Yang.
+
+It may temporarily leave its preferred operating region.
+
+The critical question is whether it can return without collapse.
+
+The Yajirobe Regulation Layer therefore regulates:
+
+* when movement may begin,
+* when movement should continue,
+* when repeated movement should be suppressed,
+* when old pressure should decay,
+* when recovery force should increase.
+
+### Boundary
+
+v0.4 regulates oscillation but does not yet complete broader field-memory integration.
+
+The following remain outside the current release:
+
+* full Field Trace propagation,
+* Trace decay and inheritance across formations,
+* Pranayama Bridge integration,
+* Multi-Wing bridge integration,
+* Boundary ecosystem integration,
+* Royalty OS value-flow connection,
+* Civilization OS bridge.
+
+### Next
+
+v0.5 will introduce the **Field Memory and Civilization OS Bridge**.
+
+The next release will connect:
+
+* Kazene Field,
+* Wuxing Phase,
+* Formation Transition,
+* Yajirobe Regulation,
+* Trace Relay,
+* Pranayama,
+* Boundary,
+* Human Gate,
+* Royalty OS.
+
+The field can now signal.
+
+It can sense.
+
+It can move.
+
+It can regulate its movement.
+
+Next, it must remember the wind that moved through it.
+
+
 ## [0.3.0-candidate] - 2026-07-06
 
 ### Added
