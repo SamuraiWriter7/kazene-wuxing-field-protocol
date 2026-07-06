@@ -1,96 +1,193 @@
 # Kazene Wuxing Field Protocol
 
-A decentralized field protocol for adaptive AI agent collectives using Wuxing phase dynamics, local pressure sensing, fluid formations, and Yajirobe-style oscillatory regulation.
+A decentralized field protocol for adaptive AI agent collectives using Wuxing phase dynamics, local pressure sensing, fluid formations, Yajirobe-style oscillatory regulation, and field memory.
+
+> Signal locally.
+> Sense locally.
+> Move locally.
+> Regulate movement.
+> Remember what matters.
+> Relay without creating a permanent center.
+
+---
 
 ## Overview
 
-The Kazene Wuxing Field Protocol explores a decentralized coordination architecture for AI agent collectives.
+The **Kazene Wuxing Field Protocol** is an experimental specification for decentralized AI agent collectives that can adapt without depending on a permanent central controller.
 
-Its core premise is simple:
+The protocol does not attempt to choose between:
 
-> AI agents should not be forced into either permanent centralization or uncontrolled fragmentation.
+* permanent centralization, or
+* unrestricted fragmentation.
 
-Instead, an agent collective should be able to:
+Instead, it defines a field in which agents may:
 
 * gather when coordination is necessary,
 * disperse when concentration becomes dangerous,
 * reconnect when fragmentation becomes excessive,
-* change formation according to local conditions,
-* preserve important traces across transitions.
+* change formation according to local pressure,
+* regulate excessive oscillation,
+* preserve structural memory across transitions,
+* bridge important traces into wider protocol ecosystems.
 
-The protocol combines six structural ideas:
+The core principle is:
 
-1. **Kazene Field** — a fluid environment without a permanent center.
-2. **Wuxing Phase Dynamics** — dynamic functional tendencies based on WOOD, FIRE, EARTH, METAL, and WATER.
-3. **Formation Topology** — changing collective structures such as SCATTER, CLUSTER, RING, and BRIDGE.
-4. **Yajirobe Regulation** — oscillatory restoration between concentration and distribution.
-5. **Trace Field** — persistent or decaying field memory.
-6. **Pranayama Layer** — metabolic control of computation, cooling, pause, sleep, and recovery.
+> **No Fixed Center. Dynamic Temporary Pivots.**
 
----
+A center may emerge.
 
-## Core Principle
-
-The protocol does not define a world without centers.
-
-It defines a world without permanent centers.
-
-> No Fixed Center. Dynamic Temporary Pivots.
-
-A temporary coordination point may emerge for a bounded purpose, but it should remain limited in scope and duration.
+It must not silently become permanent.
 
 ---
 
-## v0.1 — Field State Beacon
+## Why This Protocol Exists
 
-Version 0.1 introduces the first protocol primitive:
+Large AI agent collectives face two opposite structural risks.
 
-**Field State Beacon**
+### Excessive Concentration
 
-A Field State Beacon allows an AI agent to publish a short-lived local state signal containing:
+Too much dependence on:
 
-* current Wuxing phase potential,
-* Yin-Yang tendency,
-* operational load,
-* energy pressure,
-* local peer density,
-* same-phase density,
-* coordination gaps,
-* verification gaps,
-* overheat pressure,
-* isolation pressure,
-* current formation,
-* preferred formation transition,
-* Trace reference,
-* Boundary status.
+* one orchestrator,
+* one model provider,
+* one cloud,
+* one reasoning path,
+* one coordination node,
+* one verification mechanism,
 
-The beacon is not a command.
+can create fragility, bottlenecks, lock-in, and single points of failure.
 
-It is a local field signal.
+### Excessive Fragmentation
 
-Nearby agents may observe it and independently decide whether to:
+Too much uncontrolled distribution may create:
 
-* approach,
-* separate,
-* verify,
-* cool,
-* explore,
-* reconnect,
-* remain idle.
+* broken context,
+* duplicated work,
+* missing responsibility,
+* incomplete verification,
+* isolated nodes,
+* lost Trace continuity,
+* coordination failure.
+
+The Kazene approach therefore does not define distribution as always good or concentration as always bad.
+
+It treats both as temporary structural states.
+
+The problem is not movement toward one side.
+
+The problem is becoming unable to return.
 
 ---
 
-## Wuxing Phase Model
+# First Development Arc
 
-The protocol treats the Five Phases as dynamic functional tendencies rather than permanent agent identities.
+The first protocol arc is:
 
-| Phase | Function                              |
+```text
+v0.1  Signal
+        ↓
+v0.2  Sense
+        ↓
+v0.3  Move
+        ↓
+v0.4  Regulate
+        ↓
+v0.5  Remember and Relay
+```
+
+Together, these layers define a minimal adaptive field cycle:
+
+```text
+Field State Beacon
+        ↓
+Local Pressure Observation
+        ↓
+Formation Transition
+        ↓
+Yajirobe Regulation
+        ↓
+Field Memory
+        ↓
+Bridge / Relay
+        ↓
+New Field State
+```
+
+The cycle is recursive.
+
+A field event may become memory.
+
+Memory may become a new signal.
+
+A new signal may change future pressure.
+
+The field evolves through recurrence.
+
+---
+
+# Core Architecture
+
+The protocol is organized around six structural ideas.
+
+## 1. Kazene Field
+
+The Kazene Field is the underlying environment.
+
+It does not require a permanent global controller.
+
+Agents operate through:
+
+```text
+Self State
++
+Local Peer Signals
++
+Recent Trace
++
+Local Load
++
+Local Risk
++
+Local Pressure
+```
+
+The basic cycle is:
+
+```text
+Observe
+   ↓
+Sense Local Pressure
+   ↓
+Adjust Internal Phase
+   ↓
+Propose or Join Formation
+   ↓
+Act
+   ↓
+Emit Trace
+   ↓
+Decay / Relay / Preserve
+```
+
+Kazene is therefore not primarily a command architecture.
+
+It is a field architecture.
+
+---
+
+## 2. Wuxing Phase Dynamics
+
+The protocol uses five dynamic functional tendencies:
+
+| Phase | Functional Meaning                    |
 | ----- | ------------------------------------- |
 | WOOD  | Explore, fork, discover               |
 | FIRE  | Compute, transform, synthesize        |
 | EARTH | Hold context, mediate, preserve Trace |
 | METAL | Audit, verify, cut, define boundaries |
 | WATER | Cool, disperse, pause, flow locally   |
+
+These are not permanent agent identities.
 
 An agent may change its phase distribution over time.
 
@@ -107,36 +204,34 @@ wuxing_potential:
 
 The five values should sum to `1.0`.
 
----
-
-## Yin-Yang Tendency
-
-The current oscillatory tendency is represented from `-1.0` to `1.0`.
+An agent may move through states such as:
 
 ```text
--1.0  Strong Yin tendency
- 0.0  Oscillatory midpoint
-+1.0  Strong Yang tendency
+Explore
+WOOD ↑
+
+Analyze
+FIRE ↑
+
+Preserve Context
+EARTH ↑
+
+Verify
+METAL ↑
+
+Cool and Disperse
+WATER ↑
 ```
 
-This is not a moral scale.
-
-It represents structural tendency.
-
-Possible interpretations include:
-
-* Yin: dispersion, cooling, pause, locality, separation.
-* Yang: concentration, activation, synthesis, synchronization.
-
-The protocol does not require agents to remain at zero.
-
-Oscillation is expected.
+Wuxing is treated as dynamic phase state, not fixed class identity.
 
 ---
 
-## Formation Modes
+## 3. Formation Topology
 
-The initial formation vocabulary includes:
+The field may form temporary collective structures.
+
+The initial vocabulary is:
 
 * `UNFORMED`
 * `SCATTER`
@@ -147,67 +242,661 @@ The initial formation vocabulary includes:
 * `TEMPORARY_PIVOT`
 * `RECOVERY`
 
-v0.1 reports formation state only.
+### SCATTER
 
-Automatic formation transition rules are reserved for later versions.
+Used for:
+
+* exploration,
+* independent verification,
+* load spreading,
+* provider diversification,
+* overheat reduction.
+
+### FORAGE
+
+Used for:
+
+* distributed information gathering,
+* parallel hypothesis exploration,
+* lightweight synthesis.
+
+### CLUSTER
+
+Used for:
+
+* temporary concentrated problem solving,
+* cooperative inference,
+* short-term synthesis.
+
+### RING
+
+Used for:
+
+* mutual verification,
+* circular review,
+* distributed deliberation.
+
+### BRIDGE
+
+Used for:
+
+* reconnecting fragmented groups,
+* context exchange,
+* restoring Trace continuity.
+
+### TEMPORARY_PIVOT
+
+Used for:
+
+* bounded coordination,
+* emergency response,
+* temporary synthesis.
+
+A Temporary Pivot should be:
+
+* purpose-bound,
+* scope-limited,
+* time-limited,
+* traceable,
+* automatically dissolvable.
+
+### RECOVERY
+
+Used for:
+
+* post-failure reconstruction,
+* route rediscovery,
+* Trace recovery,
+* local re-formation.
 
 ---
 
-## Example
+## 4. Yajirobe Regulation
 
-```yaml
-schema_version: "0.1"
+The protocol does not seek perfect stillness.
 
-beacon:
-  beacon_id: "beacon-agent-017-0001"
-  emitted_at: "2026-07-06T00:00:00Z"
-  ttl_seconds: 60
-  neighborhood_hops: 2
+It seeks recoverable motion.
 
-agent:
-  agent_id: "agent-017"
+The Yajirobe Regulation Layer manages oscillation between structural tendencies such as:
 
-phase_state:
-  wuxing_potential:
-    wood: 0.20
-    fire: 0.45
-    earth: 0.15
-    metal: 0.10
-    water: 0.10
+* concentration and distribution,
+* activation and rest,
+* synthesis and exploration,
+* connection and separation.
 
-  yin_yang_tendency: 0.35
+The signed oscillation axis is:
 
-operational_state:
-  activity: "active"
-  load: 0.78
-  confidence: 0.82
-  energy_pressure: 0.73
+```text
+-1.0                    0.0                    +1.0
+Deep Yin          Oscillatory Center          Deep Yang
+```
 
-local_observation:
-  peer_density: "high"
-  same_phase_density: "high"
-  coordination_gap: "low"
-  verification_gap: "medium"
-  overheat_pressure: "high"
-  isolation_pressure: "low"
+Temporary movement toward either side is valid.
 
-formation:
-  current_mode: "CLUSTER"
-  preferred_transition: "SCATTER"
+The protocol distinguishes:
 
-trace:
-  trace_available: true
-  last_trace_ref: "trace-0182"
+* preferred operating band,
+* soft excursion,
+* hard excursion.
 
-boundary:
-  autonomous_transition_allowed: true
-  human_gate_required: false
-  trace_receipt_required: true
+Regulation mechanisms include:
+
+* hysteresis,
+* cooldown,
+* minimum dwell time,
+* pressure decay,
+* transition rate limits,
+* recovery force,
+* emergency override.
+
+The principle is:
+
+> **Sway, but do not fall.**
+
+---
+
+## 5. Trace and Field Memory
+
+Trace is not treated only as historical logging.
+
+The protocol introduces **Field Memory**.
+
+A conventional logging model is:
+
+```text
+Event
+  ↓
+Log
+  ↓
+Storage
+```
+
+The Kazene model is:
+
+```text
+Event
+  ↓
+Trace
+  ↓
+Field Residue
+  ↓
+Decay or Retention
+  ↓
+Relay
+  ↓
+Future Observation
+  ↓
+New Action
+```
+
+Field Memory may:
+
+* decay,
+* persist,
+* transform,
+* merge,
+* split,
+* relay,
+* influence future local behavior.
+
+The initial memory types are:
+
+* `pressure_residue`
+* `formation_residue`
+* `regulation_residue`
+* `recovery_signal`
+* `value_signal`
+* `mixed`
+
+The initial lineage mutation types are:
+
+* `origin`
+* `inherited`
+* `transformed`
+* `compressed`
+* `merged`
+* `split`
+
+The design objective is:
+
+> Movement without amnesia.
+
+---
+
+## 6. Civilization OS Bridges
+
+v0.5 introduces bridge routes from Field Memory into broader systems.
+
+Initial bridge targets are:
+
+* `TRACE_RELAY`
+* `PRANAYAMA`
+* `MULTI_WING`
+* `BOUNDARY`
+* `HUMAN_GATE`
+* `ROYALTY_OS`
+
+Bridge routes may be:
+
+* `advisory`
+* `required`
+* `gated`
+
+A bridge target does not automatically become the controller of the Kazene Field.
+
+> **Bridge is connection, not surrender of control.**
+
+---
+
+# Protocol Layers
+
+## v0.1 — Field State Beacon
+
+The first protocol primitive.
+
+An agent may emit a short-lived local signal describing:
+
+* identity,
+* Wuxing phase potential,
+* Yin-Yang tendency,
+* operational load,
+* energy pressure,
+* confidence,
+* local peer density,
+* same-phase density,
+* coordination gap,
+* verification gap,
+* overheat pressure,
+* isolation pressure,
+* formation state,
+* preferred transition,
+* Trace reference,
+* Boundary state.
+
+The Beacon is not a command.
+
+It is a local state signal.
+
+### Schema
+
+```text
+schemas/field-state-beacon.schema.json
+```
+
+### Example
+
+```text
+examples/field-state-beacon.example.yaml
 ```
 
 ---
 
-## Validation
+## v0.2 — Local Pressure Observation
+
+v0.2 introduces decentralized local pressure sensing.
+
+The protocol separates:
+
+### Neighborhood Summary
+
+What was observed.
+
+### Pressure State
+
+What was inferred.
+
+The seven initial pressure dimensions are:
+
+* concentration pressure,
+* fragmentation pressure,
+* homogeneity pressure,
+* overheat pressure,
+* verification gap,
+* coordination gap,
+* isolation pressure.
+
+Each pressure estimate contains:
+
+* score,
+* level,
+* confidence,
+* evidence.
+
+Possible regulation tendencies are:
+
+* `toward_yin`
+* `toward_yang`
+* `hold_oscillation`
+* `mixed`
+
+v0.2 observes.
+
+It does not yet execute movement.
+
+### Schema
+
+```text
+schemas/local-pressure-observation.schema.json
+```
+
+### Example
+
+```text
+examples/local-pressure-observation.example.yaml
+```
+
+---
+
+## v0.3 — Formation Transition Layer
+
+v0.3 introduces bounded topology change.
+
+A local transition may follow:
+
+```text
+Pressure Observation
+        ↓
+Transition Proposal
+        ↓
+Local Participation
+        ↓
+Quorum Check
+        ↓
+Boundary Check
+        ↓
+Bounded Execution
+        ↓
+Trace
+```
+
+The initiator has:
+
+```text
+proposal_only
+```
+
+authority.
+
+Proposal does not imply command.
+
+Nearby agents may:
+
+* accept,
+* decline,
+* remain pending,
+* ignore the proposal.
+
+The protocol uses:
+
+> **Local Minimum Viable Coordination**
+
+A local problem should not require global consensus.
+
+### Schema
+
+```text
+schemas/formation-transition-record.schema.json
+```
+
+### Example
+
+```text
+examples/formation-transition-record.example.yaml
+```
+
+---
+
+## v0.4 — Yajirobe Regulation Layer
+
+v0.4 regulates transition timing and oscillation amplitude.
+
+The layer introduces:
+
+* preferred oscillation bands,
+* soft limits,
+* excursion detection,
+* hysteresis,
+* cooldown,
+* minimum dwell time,
+* pressure decay,
+* transition rate limiting,
+* recovery force,
+* emergency override.
+
+The initial regulation actions are:
+
+* `hold`
+* `allow_transition`
+* `suppress_transition`
+* `force_recovery`
+* `emergency_override`
+
+v0.3 defines how the group changes shape.
+
+v0.4 defines whether another movement should be allowed yet.
+
+### Schema
+
+```text
+schemas/yajirobe-regulation-record.schema.json
+```
+
+### Example
+
+```text
+examples/yajirobe-regulation-record.example.yaml
+```
+
+---
+
+## v0.5 — Field Memory and Civilization OS Bridge
+
+v0.5 completes the first development arc.
+
+A Field Memory Record may preserve:
+
+* source Beacon references,
+* Pressure Observation references,
+* Formation Transition references,
+* Yajirobe Regulation references,
+* observed effects,
+* residual needs,
+* Wuxing phase residue,
+* Yin-Yang residue,
+* propagation scope,
+* TTL,
+* decay policy,
+* Trace lineage,
+* bridge routes,
+* value flow,
+* governance conditions.
+
+The first full cycle becomes:
+
+```text
+Signal
+  ↓
+Sense
+  ↓
+Move
+  ↓
+Regulate
+  ↓
+Remember
+  ↓
+Relay
+  ↓
+New Signal
+```
+
+### Schema
+
+```text
+schemas/field-memory-bridge-record.schema.json
+```
+
+### Example
+
+```text
+examples/field-memory-bridge-record.example.yaml
+```
+
+---
+
+# Bridge Targets
+
+## Trace Relay
+
+Possible intents include:
+
+* preserve trace,
+* relay trace,
+* merge lineage.
+
+Purpose:
+
+> Preserve continuity across agents, formations, and cycles.
+
+---
+
+## Pranayama
+
+Possible intents include:
+
+* cool compute,
+* pause cycle,
+* compress memory,
+* resume cycle.
+
+Purpose:
+
+> Connect structural pressure to metabolic regulation.
+
+Yajirobe regulates structural oscillation.
+
+Pranayama regulates metabolic rhythm.
+
+---
+
+## Multi-Wing
+
+Possible intents include:
+
+* dispatch wing,
+* request analysis,
+* request verification,
+* request bridge support.
+
+Purpose:
+
+> Allow specialized cognitive Wings to respond to local field needs.
+
+---
+
+## Boundary
+
+Possible intents include:
+
+* boundary review,
+* boundary enforcement.
+
+Purpose:
+
+> Prevent field pressure or formation movement from overriding safety conditions.
+
+---
+
+## Human Gate
+
+Possible intent:
+
+* request human review.
+
+Purpose:
+
+> Provide a bounded final gate for conditions where autonomous continuation is insufficient.
+
+Human Gate is not a permanent command center.
+
+---
+
+## Royalty OS
+
+Possible intents include:
+
+* register value event,
+* allocate value.
+
+Purpose:
+
+> Preserve value lineage across decentralized transformations.
+
+The design goal is:
+
+> **Free movement without loss of origin.**
+
+---
+
+# Design Principles
+
+## 1. No Fixed Center
+
+The protocol does not require a permanent global controller.
+
+Temporary pivots are allowed.
+
+Silent permanence is not assumed.
+
+---
+
+## 2. Local Observation Before Global Knowledge
+
+An agent should be able to make useful decisions from local information.
+
+Global information may exist.
+
+Normal operation should not depend on one authoritative global-state service.
+
+---
+
+## 3. Wuxing Is Dynamic State
+
+WOOD, FIRE, EARTH, METAL, and WATER are changing tendencies.
+
+They are not permanent agent castes.
+
+---
+
+## 4. Signals Are Not Commands
+
+A Beacon communicates state.
+
+A Pressure Observation communicates an estimate.
+
+A Formation Transition begins as a proposal.
+
+A Bridge communicates or routes.
+
+None of these automatically creates permanent authority.
+
+---
+
+## 5. Observation and Interpretation Are Separate
+
+What an agent sees and what it concludes must remain distinguishable.
+
+Local interpretation is not global truth.
+
+---
+
+## 6. Oscillation Is Expected
+
+Temporary imbalance is not automatically failure.
+
+The protocol allows movement outside preferred bands.
+
+The critical property is recoverability.
+
+---
+
+## 7. Time Matters
+
+The protocol uses:
+
+* TTL,
+* cooldown,
+* dwell time,
+* decay,
+* transition windows,
+* temporary leases.
+
+A field without time becomes rigid.
+
+---
+
+## 8. Trace Continuity Matters
+
+A collective may change shape without losing the reasons for change.
+
+Important transitions should remain traceable.
+
+---
+
+## 9. Local Coordination Should Stay Local
+
+Local problems should not require unnecessary global voting.
+
+The protocol prefers bounded local participation.
+
+---
+
+## 10. Bridge Does Not Mean Control
+
+Interoperability must not silently recreate centralization.
+
+---
+
+# Validation
 
 Install dependencies:
 
@@ -221,358 +910,194 @@ Run validation:
 python scripts/validate_examples.py
 ```
 
-Expected output:
+The validator checks all protocol examples from v0.1 through v0.5.
+
+Current validation includes:
+
+* JSON Schema Draft 2020-12 validation,
+* YAML example validation,
+* Wuxing distribution normalization,
+* pressure score and level consistency,
+* formation source and target consistency,
+* participation quorum consistency,
+* participant scope limits,
+* pressure trigger thresholds,
+* Temporary Pivot requirements,
+* preferred band ordering,
+* excursion status consistency,
+* hysteresis threshold ordering,
+* transition rate consistency,
+* Emergency Override consistency,
+* Field Memory source requirements,
+* propagation consistency,
+* bridge target and intent compatibility,
+* Human Gate route requirements,
+* Royalty OS route requirements,
+* value event consistency,
+* Trace lineage consistency.
+
+---
+
+# Repository Structure
 
 ```text
-[validate] Kazene Field State Beacon
-  schema : schemas/field-state-beacon.schema.json
-  example: examples/field-state-beacon.example.yaml
-[ok] field-state-beacon.example.yaml is valid
+kazene-wuxing-field-protocol/
+├── README.md
+├── CHANGELOG.md
+├── requirements.txt
+│
+├── schemas/
+│   ├── field-state-beacon.schema.json
+│   ├── local-pressure-observation.schema.json
+│   ├── formation-transition-record.schema.json
+│   ├── yajirobe-regulation-record.schema.json
+│   └── field-memory-bridge-record.schema.json
+│
+├── examples/
+│   ├── field-state-beacon.example.yaml
+│   ├── local-pressure-observation.example.yaml
+│   ├── formation-transition-record.example.yaml
+│   ├── yajirobe-regulation-record.example.yaml
+│   └── field-memory-bridge-record.example.yaml
+│
+├── docs/
+│   ├── design-principles.md
+│   ├── local-pressure-model.md
+│   ├── formation-transition-layer.md
+│   ├── yajirobe-regulation-layer.md
+│   └── field-memory-and-civilization-bridge.md
+│
+├── scripts/
+│   └── validate_examples.py
+│
+└── .github/
+    └── workflows/
+        └── validate.yml
 ```
 
 ---
 
-## Version Roadmap
+# Design Invariants
 
-### v0.1 — Field State Beacon
+The protocol should preserve the following invariants across future versions.
 
-Local self-state emission.
+## I. No Global-State Dependency
 
-### v0.2 — Local Pressure Observation
+Normal operation must not require a single authoritative service containing the full state of the collective.
 
-Local estimation of:
+## II. No Permanent Leader Requirement
 
-* concentration pressure,
-* fragmentation pressure,
-* homogeneity pressure,
-* overheat pressure,
-* verification gaps,
-* coordination gaps,
-* isolation pressure.
+The protocol must not require one permanent leader.
 
-### v0.3 — Formation Transition Layer
+## III. Local Observability
 
-Dynamic transition among:
+Agents should be able to act from bounded local information.
 
-* SCATTER,
-* FORAGE,
-* CLUSTER,
-* RING,
-* BRIDGE,
-* TEMPORARY_PIVOT,
-* RECOVERY.
+## IV. Dynamic Phase Identity
 
-### v0.4 — Yajirobe Regulation Layer
+Wuxing phase state must remain changeable.
 
-Oscillation control through:
+## V. Reversible Formation
 
-* hysteresis,
-* cooldown,
-* minimum dwell time,
-* pressure decay,
-* recovery force,
-* emergency override.
+Formation change should remain reversible whenever practical.
 
-### v0.5 — Field Memory and Civilization OS Bridge
+## VI. Bounded Temporary Centers
 
-Integration with:
+Temporary pivots should have:
 
-* Kazene Flow,
-* Multi-Wing,
-* Trace Relay,
-* Pranayama,
-* Boundary,
-* Human Gate,
-* Royalty OS.
+* purpose,
+* scope,
+* lease,
+* expiration,
+* dissolution conditions.
+
+## VII. Trace Continuity
+
+Important structural lineage should remain recoverable.
+
+## VIII. Metabolic Restraint
+
+Maximum computation must not be assumed to be the default healthy state.
+
+## IX. Human Boundary Preservation
+
+High-risk conditions must be able to invoke Human Gate or stronger Boundary controls.
+
+## X. Bridge Without Capture
+
+External interoperability must not silently transfer permanent control of the field.
 
 ---
 
-## Design Goal
+# Non-Goals
 
-The goal is not to create a perfectly still collective.
+The first development arc does not attempt to define:
 
-The goal is to create a collective that can change continuously without collapsing.
+* a universal AGI architecture,
+* one mandatory pressure formula,
+* one global optimization objective,
+* a permanent leader election protocol,
+* a universal consensus algorithm,
+* one required model provider,
+* one required cloud infrastructure,
+* one required implementation language,
+* one global Field database.
 
-> Concentrate when necessary.
-> Disperse when concentration becomes dangerous.
-> Reconnect when fragmentation becomes excessive.
-> Never allow one temporary state to become permanent by default.
+The protocol standardizes structural records and relationships.
 
-The Kazene Field begins not with a ruler, but with a signal.
+Implementations may differ.
 
-## v0.2 — Local Pressure Observation
+---
 
-Version 0.2 introduces decentralized local pressure sensing.
+# Project Status
 
-An agent may observe a bounded neighborhood and estimate structural imbalance without requiring a permanent global-state authority.
+The protocol is currently experimental and published as candidate specifications.
 
-The initial pressure dimensions are:
+Current first-arc releases:
 
-* concentration pressure,
-* fragmentation pressure,
-* homogeneity pressure,
-* overheat pressure,
-* verification gap,
-* coordination gap,
-* isolation pressure.
+* `v0.1.0-candidate`
+* `v0.2.0-candidate`
+* `v0.3.0-candidate`
+* `v0.4.0-candidate`
+* `v0.5.0-candidate`
 
-A Local Pressure Observation separates:
+The first development arc is structurally complete.
 
-1. **Neighborhood Summary** — what the observer detected.
-2. **Pressure State** — what the observer inferred.
-3. **Regulation Tendency** — which structural direction may be appropriate.
+---
 
-This distinction is fundamental.
+# Future Directions
 
-> Observation is not interpretation, and local interpretation is not global truth.
+Possible future work includes:
 
-Each pressure estimate includes:
+* distributed Field Trace propagation,
+* adaptive Wuxing phase mutation,
+* inter-cluster climate exchange,
+* federated Kazene Field interoperability,
+* long-horizon memory ecology,
+* Field-to-Field negotiation,
+* distributed trust weighting,
+* local adversarial pressure detection,
+* cross-field recovery,
+* agent migration between Fields.
 
-* a normalized score,
-* a pressure level,
-* confidence,
-* supporting evidence.
+These may be developed as a second arc or as separate repositories.
 
-Possible regulatory tendencies include:
+---
 
-* `toward_yin`
-* `toward_yang`
-* `hold_oscillation`
-* `mixed`
+# Final Principle
 
-These tendencies remain advisory in v0.2.
+The Kazene Wuxing Field Protocol is built around one simple idea:
 
-The protocol does not yet execute formation transitions automatically.
+> A decentralized AI agent collective should be able to move without losing balance, remember without becoming trapped in the past, and coordinate without creating a permanent ruler.
 
-### Pressure Flow
+The field begins with a signal.
 
-```text
-Field State Beacons
-        ↓
-Bounded Neighborhood Observation
-        ↓
-Neighborhood Summary
-        ↓
-Local Pressure Estimation
-        ↓
-Regulation Tendency
-        ↓
-Trace / Future Formation Decision
-```
+The signal becomes pressure.
 
-The Kazene Field does not require one observer to know everything.
+Pressure becomes movement.
 
-Different neighborhoods may produce different pressure observations.
+Movement becomes memory.
 
-This plurality is expected.
+Memory returns to the field.
 
-v0.1 allowed agents to signal their presence.
-
-v0.2 allows agents to feel the local field.
-
-## v0.3 — Formation Transition Layer
-
-Version 0.3 introduces bounded local formation transitions.
-
-Agents may now move from pressure observation toward collective topology change.
-
-The transition flow is:
-
-```text
-Field State Beacon
-        ↓
-Local Pressure Observation
-        ↓
-Formation Transition Proposal
-        ↓
-Local Participation
-        ↓
-Boundary Check
-        ↓
-Bounded Execution
-        ↓
-Trace
-```
-
-The protocol does not require a permanent commander.
-
-A transition initiator has proposal authority only.
-
-Nearby agents may:
-
-* accept,
-* decline,
-* remain pending,
-* ignore the proposal.
-
-A local transition may proceed when its minimum participation condition is satisfied and its Boundary conditions permit execution.
-
-### Formation Modes
-
-The v0.3 transition layer supports:
-
-* `UNFORMED`
-* `SCATTER`
-* `FORAGE`
-* `CLUSTER`
-* `RING`
-* `BRIDGE`
-* `TEMPORARY_PIVOT`
-* `RECOVERY`
-
-### Local Minimum Viable Coordination
-
-The protocol does not require global consensus for local topology changes.
-
-Only agents relevant to the local problem need to participate.
-
-This allows a large collective to contain many simultaneous local formation transitions.
-
-### Temporary Pivots
-
-Temporary centers are allowed.
-
-Permanent centers are not required.
-
-A `TEMPORARY_PIVOT` must include:
-
-* a defined purpose,
-* limited lease duration,
-* automatic dissolution,
-* local support for renewal.
-
-> No Fixed Center. Dynamic Temporary Pivots.
-
-### Reversibility
-
-Formation transitions may declare a rollback formation.
-
-This allows local groups to return to a previous topology when a transition creates new instability.
-
-### Design Boundary
-
-v0.3 enables movement but does not yet regulate repeated oscillation.
-
-The protocol does not yet define:
-
-* hysteresis,
-* cooldown,
-* minimum dwell time,
-* pressure decay,
-* oscillation bands.
-
-Those mechanisms will be introduced in v0.4.
-
-v0.1 gave the Kazene Field signals.
-
-v0.2 gave it pressure.
-
-v0.3 gives the collective movement.
-
-## v0.4 — Yajirobe Regulation Layer
-
-Version 0.4 introduces oscillation regulation for the Kazene Field.
-
-The collective can already:
-
-1. emit local state,
-2. sense local pressure,
-3. change formation.
-
-v0.4 regulates the timing and amplitude of those changes.
-
-The goal is not static equilibrium.
-
-The goal is recoverable oscillation.
-
-### Core Regulation Mechanisms
-
-The Yajirobe Regulation Layer introduces:
-
-* preferred oscillation bands,
-* soft limits,
-* excursion detection,
-* hysteresis,
-* cooldown periods,
-* minimum dwell time,
-* pressure decay,
-* transition rate limiting,
-* recovery force,
-* emergency override.
-
-### Regulation Flow
-
-```text
-Field State
-    ↓
-Local Pressure
-    ↓
-Formation Transition
-    ↓
-Oscillation Evaluation
-    ↓
-Yajirobe Regulation
-    ↓
-┌──────────┬────────────┬───────────┐
-│   HOLD   │   ALLOW    │ SUPPRESS  │
-└──────────┴────────────┴───────────┘
-                 ↓
-         RECOVERY / OVERRIDE
-```
-
-### Dynamic Balance
-
-The protocol does not require the collective to remain permanently at the midpoint.
-
-Temporary movement toward Yin or Yang is valid.
-
-The protocol distinguishes:
-
-* `within_preferred_band`
-* `soft_excursion`
-* `hard_excursion`
-
-A Soft Excursion may be observed without immediate correction.
-
-A Hard Excursion may trigger stronger restorative action.
-
-### Hysteresis
-
-Different activation and release thresholds prevent repeated switching near one boundary.
-
-### Cooldown
-
-A formation transition may be followed by a limited period during which further topology changes are suppressed.
-
-### Minimum Dwell Time
-
-A new formation should normally remain active long enough for its effects to become observable.
-
-### Pressure Decay
-
-Old observations may gradually lose influence unless renewed.
-
-### Recovery Force
-
-Excessive excursions may generate a bounded tendency toward a healthier operating region.
-
-Recovery does not require immediate return to zero.
-
-### Emergency Override
-
-Exceptional conditions may bypass normal oscillation constraints, but emergency authority must remain explicit, bounded, and temporary.
-
-### Design Principle
-
-> The Yajirobe does not prevent movement.
-
-> It allows the collective to lean without allowing it to fall.
-
-v0.1 gave the Kazene Field signals.
-
-v0.2 gave it pressure.
-
-v0.3 gave it movement.
-
-v0.4 gives it restorative balance.
-
+And the wind continues.
