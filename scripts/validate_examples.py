@@ -650,6 +650,240 @@ def validate_yajirobe_regulation(
 
     return errors
 
+BRIDGE_INTENTS: dict[str, set[str]] = {
+    "TRACE_RELAY": {
+        "preserve_trace",
+        "relay_trace",
+        "merge_lineage",
+    },
+    "PRANAYAMA": {
+        "cool_compute",
+        "pause_cycle",
+        "compress_memory",
+        "resume_cycle",
+    },
+    "MULTI_WING": {
+        "dispatch_wing",
+        "request_analysis",
+        "request_verification",
+        "request_bridge",
+    },
+    "BOUNDARY": {
+        "boundary_review",
+        "enforce_boundary",
+    },
+    "HUMAN_GATE": {
+        "request_human_review",
+    },
+    "ROYALTY_OS": {
+        "register_value_event",
+        "allocate_value",
+    },
+}
+
+
+def validate_field_memory_bridge(
+    instance: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+
+    try:
+        distribution = (
+            instance["wuxing_residue"]
+            ["phase_distribution"]
+        )
+    except (KeyError, TypeError):
+        distribution = None
+
+    if isinstance(distribution, dict):
+        errors.extend(
+            validate_distribution_sum(
+                distribution,
+                "wuxing_residue.phase_distribution",
+            )
+        )
+
+    source_context = instance.get(
+        "source_context",
+        {},
+    )
+
+    source_ref_count = 0
+
+    if isinstance(source_context, dict):
+        for refs in source_context.values():
+            if isinstance(refs, list):
+                source_ref_count += len(refs)
+
+    if source_ref_count == 0:
+        errors.append(
+            "source_context must contain at least "
+            "one source reference"
+        )
+
+    propagation = instance.get(
+        "propagation",
+        {},
+    )
+
+    mode = propagation.get("mode")
+    radius_hops = propagation.get(
+        "radius_hops"
+    )
+    relay_required = propagation.get(
+        "relay_required"
+    )
+
+    if mode == "none":
+        if radius_hops != 0:
+            errors.append(
+                "propagation.radius_hops must be 0 "
+                "when propagation.mode is 'none'"
+            )
+
+        if relay_required is True:
+            errors.append(
+                "propagation.relay_required must be "
+                "false when propagation.mode is 'none'"
+            )
+
+    bridge_routes = instance.get(
+        "bridge_routes",
+        [],
+    )
+
+    seen_targets: set[str] = set()
+
+    for index, route in enumerate(bridge_routes):
+        if not isinstance(route, dict):
+            continue
+
+        target = route.get("target")
+        intent = route.get("intent")
+
+        if isinstance(target, str):
+            if target in seen_targets:
+                errors.append(
+                    f"bridge_routes.{index}.target "
+                    f"duplicates target '{target}'"
+                )
+
+            seen_targets.add(target)
+
+        allowed_intents = BRIDGE_INTENTS.get(
+            target,
+            set(),
+        )
+
+        if (
+            isinstance(intent, str)
+            and allowed_intents
+            and intent not in allowed_intents
+        ):
+            errors.append(
+                f"bridge_routes.{index}.intent "
+                f"'{intent}' is not valid for "
+                f"target '{target}'"
+            )
+
+    governance = instance.get(
+        "governance",
+        {},
+    )
+
+    human_gate_required = governance.get(
+        "human_gate_required"
+    )
+
+    if (
+        human_gate_required is True
+        and "HUMAN_GATE" not in seen_targets
+    ):
+        errors.append(
+            "a HUMAN_GATE bridge route is required "
+            "when governance.human_gate_required "
+            "is true"
+        )
+
+    value_flow = instance.get(
+        "value_flow",
+        {},
+    )
+
+    generated_value = value_flow.get(
+        "generated_value"
+    )
+
+    value_event_ref = value_flow.get(
+        "value_event_ref"
+    )
+
+    royalty_hook_required = value_flow.get(
+        "royalty_hook_required"
+    )
+
+    if generated_value is False:
+        if value_event_ref is not None:
+            errors.append(
+                "value_flow.value_event_ref must be "
+                "null when generated_value is false"
+            )
+
+        if royalty_hook_required is True:
+            errors.append(
+                "value_flow.royalty_hook_required "
+                "cannot be true when generated_value "
+                "is false"
+            )
+
+    if royalty_hook_required is True:
+        if "ROYALTY_OS" not in seen_targets:
+            errors.append(
+                "a ROYALTY_OS bridge route is required "
+                "when royalty_hook_required is true"
+            )
+
+        if value_event_ref is None:
+            errors.append(
+                "value_flow.value_event_ref is required "
+                "when royalty_hook_required is true"
+            )
+
+    lineage = instance.get(
+        "lineage",
+        {},
+    )
+
+    mutation_type = lineage.get(
+        "mutation_type"
+    )
+
+    parent_trace_refs = lineage.get(
+        "parent_trace_refs",
+        [],
+    )
+
+    if (
+        mutation_type == "origin"
+        and len(parent_trace_refs) > 0
+    ):
+        errors.append(
+            "lineage.parent_trace_refs must be empty "
+            "when mutation_type is 'origin'"
+        )
+
+    if (
+        mutation_type != "origin"
+        and len(parent_trace_refs) == 0
+    ):
+        errors.append(
+            "lineage.parent_trace_refs must contain "
+            "at least one reference for non-origin "
+            "mutation types"
+        )
+
+    return errors
+
 VALIDATION_TARGETS: list[
     tuple[
         str,
@@ -697,6 +931,16 @@ VALIDATION_TARGETS: list[
     / "examples"
     / "yajirobe-regulation-record.example.yaml",
     validate_yajirobe_regulation,
+),
+    (
+    "Kazene Field Memory Bridge Record",
+    ROOT
+    / "schemas"
+    / "field-memory-bridge-record.schema.json",
+    ROOT
+    / "examples"
+    / "field-memory-bridge-record.example.yaml",
+    validate_field_memory_bridge,
 ),
 ]
 
