@@ -1,0 +1,110 @@
+schema_version: "0.2"
+
+record:
+  observation_id: "pressure-observation-0001"
+  observed_at: "2026-07-06T01:00:00Z"
+  valid_for_seconds: 90
+
+observer:
+  agent_id: "agent-017"
+  source_beacon_ref: "beacon-agent-017-0001"
+
+observation_scope:
+  neighborhood_hops: 2
+  observation_window_seconds: 120
+  observed_peer_count: 12
+  coverage_confidence: 0.84
+
+neighborhood_summary:
+  active_peer_ratio: 0.92
+  dominant_phase: "FIRE"
+
+  phase_distribution:
+    wood: 0.12
+    fire: 0.55
+    earth: 0.13
+    metal: 0.08
+    water: 0.12
+
+  average_load: 0.79
+  average_energy_pressure: 0.74
+  verification_coverage: 0.53
+  coordination_connectivity: 0.78
+  isolated_peer_ratio: 0.11
+
+pressure_state:
+  concentration_pressure:
+    score: 0.82
+    level: "critical"
+    confidence: 0.86
+    evidence:
+      - "High active-peer density inside a two-hop neighborhood."
+      - "Multiple peers are participating in the same local cluster."
+
+  fragmentation_pressure:
+    score: 0.18
+    level: "low"
+    confidence: 0.80
+    evidence:
+      - "Coordination connectivity remains high."
+      - "Observed peer isolation is limited."
+
+  homogeneity_pressure:
+    score: 0.76
+    level: "critical"
+    confidence: 0.88
+    evidence:
+      - "FIRE represents more than half of the local phase distribution."
+      - "METAL and WATER presence is comparatively low."
+
+  overheat_pressure:
+    score: 0.74
+    level: "high"
+    confidence: 0.87
+    evidence:
+      - "Average neighborhood load is elevated."
+      - "Average energy pressure is elevated."
+
+  verification_gap:
+    score: 0.47
+    level: "medium"
+    confidence: 0.72
+    evidence:
+      - "Verification coverage is incomplete."
+      - "Local METAL presence is low."
+
+  coordination_gap:
+    score: 0.22
+    level: "low"
+    confidence: 0.82
+    evidence:
+      - "Coordination connectivity remains relatively high."
+
+  isolation_pressure:
+    score: 0.11
+    level: "low"
+    confidence: 0.90
+    evidence:
+      - "Only a small fraction of observed peers appear isolated."
+
+regulation_tendency:
+  direction: "toward_yin"
+  strength: 0.77
+  suggested_formation: "SCATTER"
+  rationale:
+    - "Concentration pressure is critical."
+    - "Homogeneity pressure is critical."
+    - "Overheat pressure is high."
+    - "Additional WATER and METAL tendencies would improve local balance."
+
+trace:
+  input_trace_refs:
+    - "trace-0182"
+    - "trace-0183"
+
+  emit_pressure_trace: true
+
+boundary:
+  observation_only: true
+  autonomous_transition_allowed: false
+  human_gate_required: false
