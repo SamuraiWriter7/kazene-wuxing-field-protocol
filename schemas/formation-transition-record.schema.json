@@ -1,0 +1,447 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/kazene-wuxing-field-protocol/schemas/formation-transition-record.schema.json",
+  "title": "Kazene Formation Transition Record",
+  "description": "A decentralized record for proposing, negotiating, executing, and tracing bounded formation transitions in a Kazene AI agent collective.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "transition",
+    "initiator",
+    "pressure_basis",
+    "formation_change",
+    "scope",
+    "participation",
+    "execution",
+    "trace",
+    "boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.3"
+    },
+    "transition": {
+      "$ref": "#/$defs/transition"
+    },
+    "initiator": {
+      "$ref": "#/$defs/initiator"
+    },
+    "pressure_basis": {
+      "$ref": "#/$defs/pressureBasis"
+    },
+    "formation_change": {
+      "$ref": "#/$defs/formationChange"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "participation": {
+      "$ref": "#/$defs/participation"
+    },
+    "execution": {
+      "$ref": "#/$defs/execution"
+    },
+    "temporary_pivot": {
+      "$ref": "#/$defs/temporaryPivot"
+    },
+    "trace": {
+      "$ref": "#/$defs/trace"
+    },
+    "boundary": {
+      "$ref": "#/$defs/boundary"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "formation_change": {
+            "properties": {
+              "target_mode": {
+                "const": "TEMPORARY_PIVOT"
+              }
+            },
+            "required": [
+              "target_mode"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "temporary_pivot"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "unitInterval": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "formationMode": {
+      "type": "string",
+      "enum": [
+        "UNFORMED",
+        "SCATTER",
+        "FORAGE",
+        "CLUSTER",
+        "RING",
+        "BRIDGE",
+        "TEMPORARY_PIVOT",
+        "RECOVERY"
+      ]
+    },
+    "pressureDimensionName": {
+      "type": "string",
+      "enum": [
+        "concentration_pressure",
+        "fragmentation_pressure",
+        "homogeneity_pressure",
+        "overheat_pressure",
+        "verification_gap",
+        "coordination_gap",
+        "isolation_pressure"
+      ]
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "created_at",
+        "expires_at",
+        "status"
+      ],
+      "properties": {
+        "transition_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "negotiating",
+            "approved",
+            "executing",
+            "completed",
+            "aborted",
+            "expired"
+          ]
+        }
+      }
+    },
+    "initiator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_id",
+        "authority_type"
+      ],
+      "properties": {
+        "agent_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority_type": {
+          "type": "string",
+          "const": "proposal_only"
+        },
+        "source_beacon_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "pressureTrigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "score",
+        "minimum_trigger_score"
+      ],
+      "properties": {
+        "dimension": {
+          "$ref": "#/$defs/pressureDimensionName"
+        },
+        "score": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "minimum_trigger_score": {
+          "$ref": "#/$defs/unitInterval"
+        }
+      }
+    },
+    "pressureBasis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_refs",
+        "trigger_dimensions"
+      ],
+      "properties": {
+        "observation_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "trigger_dimensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pressureTrigger"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "formationChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_mode",
+        "target_mode",
+        "transition_reason"
+      ],
+      "properties": {
+        "current_mode": {
+          "$ref": "#/$defs/formationMode"
+        },
+        "target_mode": {
+          "$ref": "#/$defs/formationMode"
+        },
+        "transition_reason": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_type",
+        "neighborhood_hops",
+        "maximum_participants"
+      ],
+      "properties": {
+        "scope_type": {
+          "type": "string",
+          "enum": [
+            "local",
+            "cluster",
+            "bridge",
+            "recovery"
+          ]
+        },
+        "neighborhood_hops": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maximum_participants": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "participation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum_participants",
+        "accepted_agent_ids",
+        "declined_agent_ids",
+        "pending_agent_ids",
+        "quorum_met"
+      ],
+      "properties": {
+        "minimum_participants": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "accepted_agent_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "declined_agent_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "pending_agent_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "quorum_met": {
+          "type": "boolean"
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_mode",
+        "reversible",
+        "rollback_mode",
+        "started_at"
+      ],
+      "properties": {
+        "execution_mode": {
+          "type": "string",
+          "enum": [
+            "advisory",
+            "coordinated_local",
+            "autonomous_local",
+            "human_gated"
+          ]
+        },
+        "reversible": {
+          "type": "boolean"
+        },
+        "rollback_mode": {
+          "$ref": "#/$defs/formationMode"
+        },
+        "started_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "completed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "temporaryPivot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pivot_agent_id",
+        "purpose",
+        "lease_seconds",
+        "auto_dissolve",
+        "renewal_requires_local_support"
+      ],
+      "properties": {
+        "pivot_agent_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lease_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "auto_dissolve": {
+          "type": "boolean",
+          "const": true
+        },
+        "renewal_requires_local_support": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_trace_refs",
+        "transition_trace_required"
+      ],
+      "properties": {
+        "input_trace_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "transition_trace_required": {
+          "type": "boolean",
+          "const": true
+        },
+        "output_trace_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "autonomous_execution_allowed",
+        "human_gate_required",
+        "safety_check_passed",
+        "risk_level"
+      ],
+      "properties": {
+        "autonomous_execution_allowed": {
+          "type": "boolean"
+        },
+        "human_gate_required": {
+          "type": "boolean"
+        },
+        "safety_check_passed": {
+          "type": "boolean"
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        }
+      }
+    }
+  }
+}
