@@ -1,0 +1,479 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/kazene-wuxing-field-protocol/schemas/yajirobe-regulation-record.schema.json",
+  "title": "Kazene Yajirobe Regulation Record",
+  "description": "A regulation record for controlling oscillation, hysteresis, cooldown, dwell time, pressure decay, and recovery in decentralized Kazene agent collectives.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "regulation",
+    "source_context",
+    "oscillation_state",
+    "regulation_policy",
+    "formation_history",
+    "regulation_decision",
+    "emergency_override",
+    "trace",
+    "boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.4"
+    },
+    "regulation": {
+      "$ref": "#/$defs/regulation"
+    },
+    "source_context": {
+      "$ref": "#/$defs/sourceContext"
+    },
+    "oscillation_state": {
+      "$ref": "#/$defs/oscillationState"
+    },
+    "regulation_policy": {
+      "$ref": "#/$defs/regulationPolicy"
+    },
+    "formation_history": {
+      "$ref": "#/$defs/formationHistory"
+    },
+    "regulation_decision": {
+      "$ref": "#/$defs/regulationDecision"
+    },
+    "emergency_override": {
+      "$ref": "#/$defs/emergencyOverride"
+    },
+    "trace": {
+      "$ref": "#/$defs/trace"
+    },
+    "boundary": {
+      "$ref": "#/$defs/boundary"
+    }
+  },
+  "$defs": {
+    "unitInterval": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "signedInterval": {
+      "type": "number",
+      "minimum": -1.0,
+      "maximum": 1.0
+    },
+    "formationMode": {
+      "type": "string",
+      "enum": [
+        "UNFORMED",
+        "SCATTER",
+        "FORAGE",
+        "CLUSTER",
+        "RING",
+        "BRIDGE",
+        "TEMPORARY_PIVOT",
+        "RECOVERY"
+      ]
+    },
+    "regulation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "regulation_id",
+        "evaluated_at",
+        "valid_for_seconds",
+        "status"
+      ],
+      "properties": {
+        "regulation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evaluated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "valid_for_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "observing",
+            "regulating",
+            "cooldown",
+            "recovering",
+            "emergency_override"
+          ]
+        }
+      }
+    },
+    "sourceContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pressure_observation_refs",
+        "formation_transition_refs"
+      ],
+      "properties": {
+        "pressure_observation_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "formation_transition_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "balanceBand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preferred_min",
+        "preferred_max",
+        "soft_limit_min",
+        "soft_limit_max"
+      ],
+      "properties": {
+        "preferred_min": {
+          "$ref": "#/$defs/signedInterval"
+        },
+        "preferred_max": {
+          "$ref": "#/$defs/signedInterval"
+        },
+        "soft_limit_min": {
+          "$ref": "#/$defs/signedInterval"
+        },
+        "soft_limit_max": {
+          "$ref": "#/$defs/signedInterval"
+        }
+      }
+    },
+    "oscillationState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "axis_position",
+        "direction",
+        "oscillation_velocity",
+        "balance_band",
+        "excursion_status"
+      ],
+      "properties": {
+        "axis_position": {
+          "$ref": "#/$defs/signedInterval"
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "toward_yin",
+            "toward_yang",
+            "stable",
+            "mixed"
+          ]
+        },
+        "oscillation_velocity": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "balance_band": {
+          "$ref": "#/$defs/balanceBand"
+        },
+        "excursion_status": {
+          "type": "string",
+          "enum": [
+            "within_preferred_band",
+            "soft_excursion",
+            "hard_excursion"
+          ]
+        }
+      }
+    },
+    "hysteresisPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "entry_score",
+        "release_score"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "entry_score": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "release_score": {
+          "$ref": "#/$defs/unitInterval"
+        }
+      }
+    },
+    "decayPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "model",
+        "half_life_seconds"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "string",
+          "enum": [
+            "none",
+            "linear",
+            "exponential"
+          ]
+        },
+        "half_life_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "transitionRateLimit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "window_seconds",
+        "maximum_transitions"
+      ],
+      "properties": {
+        "window_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maximum_transitions": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "regulationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hysteresis",
+        "cooldown_seconds",
+        "minimum_dwell_seconds",
+        "maximum_excursion_seconds",
+        "recovery_force",
+        "pressure_decay",
+        "transition_rate_limit"
+      ],
+      "properties": {
+        "hysteresis": {
+          "$ref": "#/$defs/hysteresisPolicy"
+        },
+        "cooldown_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "minimum_dwell_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maximum_excursion_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "recovery_force": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "pressure_decay": {
+          "$ref": "#/$defs/decayPolicy"
+        },
+        "transition_rate_limit": {
+          "$ref": "#/$defs/transitionRateLimit"
+        }
+      }
+    },
+    "formationHistory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_formation",
+        "current_formation_since",
+        "previous_formation",
+        "last_transition_at",
+        "recent_transition_count"
+      ],
+      "properties": {
+        "current_formation": {
+          "$ref": "#/$defs/formationMode"
+        },
+        "current_formation_since": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "previous_formation": {
+          "$ref": "#/$defs/formationMode"
+        },
+        "last_transition_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recent_transition_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "regulationDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "target_direction",
+        "strength",
+        "suggested_formation",
+        "rationale"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "hold",
+            "allow_transition",
+            "suppress_transition",
+            "force_recovery",
+            "emergency_override"
+          ]
+        },
+        "target_direction": {
+          "type": "string",
+          "enum": [
+            "toward_yin",
+            "toward_yang",
+            "hold_oscillation",
+            "mixed"
+          ]
+        },
+        "strength": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "suggested_formation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/formationMode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rationale": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "emergencyOverride": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "active",
+        "reason",
+        "expires_at",
+        "human_gate_required"
+      ],
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expires_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "human_gate_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_trace_refs",
+        "regulation_trace_required",
+        "output_trace_ref"
+      ],
+      "properties": {
+        "input_trace_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "regulation_trace_required": {
+          "type": "boolean",
+          "const": true
+        },
+        "output_trace_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "automatic_regulation_allowed",
+        "human_gate_required",
+        "safety_check_passed",
+        "risk_level"
+      ],
+      "properties": {
+        "automatic_regulation_allowed": {
+          "type": "boolean"
+        },
+        "human_gate_required": {
+          "type": "boolean"
+        },
+        "safety_check_passed": {
+          "type": "boolean"
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        }
+      }
+    }
+  }
+}
