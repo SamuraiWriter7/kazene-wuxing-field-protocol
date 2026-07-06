@@ -1,10 +1,194 @@
 # Changelog
 
-All notable changes to the Kazene Wuxing Field Protocol will be documented in this file.
+All notable changes to the **Kazene Wuxing Field Protocol** are documented in this file.
 
-The project is currently in an experimental pre-release stage.
+The project is currently in an experimental candidate-release stage.
+
+The first development arc follows:
+
+```text
+v0.1  Signal
+        ↓
+v0.2  Sense
+        ↓
+v0.3  Move
+        ↓
+v0.4  Regulate
+        ↓
+v0.5  Remember and Relay
+```
+
+---
+
+## [0.5.0-candidate] - 2026-07-06
+
+### Field Memory and Civilization OS Bridge
+
+v0.5 completes the first development arc.
+
+The release introduces structured Field Memory and interoperability routes from the Kazene Field into broader protocol layers.
+
+### Added
+
+* Field Memory Bridge Record specification.
+* JSON Schema for field memory preservation and protocol bridging.
+* YAML example connecting events across the complete first protocol arc.
+* Source context references for:
+
+  * Field State Beacon,
+  * Local Pressure Observation,
+  * Formation Transition,
+  * Yajirobe Regulation.
+* Field Memory types:
+
+  * pressure residue,
+  * formation residue,
+  * regulation residue,
+  * recovery signal,
+  * value signal,
+  * mixed memory.
+* Observed effect records.
+* Residual need records.
+* Memory confidence.
+* Persistence classes:
+
+  * ephemeral,
+  * retained,
+  * archival.
+* Wuxing phase residue.
+* Yin-Yang residue.
+* Memory propagation modes:
+
+  * none,
+  * local,
+  * N-hop,
+  * cluster bridge.
+* Memory TTL.
+* Memory decay policy.
+* Trace lineage support.
+* Trace mutation types:
+
+  * origin,
+  * inherited,
+  * transformed,
+  * compressed,
+  * merged,
+  * split.
+* Civilization OS bridge routes for:
+
+  * Trace Relay,
+  * Pranayama,
+  * Multi-Wing,
+  * Boundary,
+  * Human Gate,
+  * Royalty OS.
+* Bridge modes:
+
+  * advisory,
+  * required,
+  * gated.
+* Bridge route status tracking.
+* Value event reference support.
+* Royalty Hook requirement declaration.
+* Origin Trace preservation for value flow.
+* Governance scope declaration.
+* Extended validator support for:
+
+  * Wuxing residue normalization,
+  * source context requirements,
+  * propagation consistency,
+  * duplicate bridge targets,
+  * bridge target and intent compatibility,
+  * Human Gate route requirements,
+  * Royalty OS route requirements,
+  * value event consistency,
+  * Trace lineage consistency.
+* Field Memory and Civilization OS Bridge documentation.
+
+### Design Position
+
+v0.5 introduces the final step of the first arc:
+
+```text
+Signal
+→ Sense
+→ Move
+→ Regulate
+→ Remember
+→ Relay
+```
+
+Field Memory is not treated as passive historical storage.
+
+It is structured residue that may:
+
+* decay,
+* persist,
+* transform,
+* merge,
+* split,
+* relay,
+* influence future field behavior.
+
+### Civilization OS Integration
+
+The initial bridge targets are:
+
+* Trace Relay,
+* Pranayama,
+* Multi-Wing,
+* Boundary,
+* Human Gate,
+* Royalty OS.
+
+These routes do not transfer permanent control of the Kazene Field.
+
+The protocol distinguishes:
+
+* advisory routes,
+* required routes,
+* gated routes.
+
+> Bridge means interoperability, not centralization.
+
+### First Arc Completion
+
+The first development arc is now structurally complete:
+
+* v0.1 — signal,
+* v0.2 — sense,
+* v0.3 — move,
+* v0.4 — regulate,
+* v0.5 — remember and relay.
+
+The field can now preserve continuity across local transformation.
+
+### Future Direction
+
+Possible future work includes:
+
+* distributed Field Trace propagation,
+* adaptive phase mutation,
+* cross-cluster climate exchange,
+* federated field interoperability,
+* long-horizon memory ecology,
+* multi-field negotiation.
+
+The first arc closes with a simple principle:
+
+> A decentralized field should be able to move without forgetting why it moved.
+
+---
 
 ## [0.4.0-candidate] - 2026-07-06
+
+### Yajirobe Regulation Layer
+
+v0.4 introduces restorative oscillation regulation.
+
+The collective can already signal, sense, and move.
+
+This release allows it to regulate the timing and amplitude of its own movement.
 
 ### Added
 
@@ -29,7 +213,7 @@ The project is currently in an experimental pre-release stage.
 * Minimum formation dwell time.
 * Maximum excursion duration.
 * Recovery force.
-* Pressure decay policy:
+* Pressure decay policies:
 
   * none,
   * linear,
@@ -60,14 +244,14 @@ The project is currently in an experimental pre-release stage.
   * expiration,
   * Human Gate requirement.
 * Regulation Trace requirement.
-* Extended custom validation for:
+* Extended validation for:
 
   * balance band ordering,
   * preferred and soft limit containment,
   * excursion status consistency,
   * hysteresis threshold ordering,
-  * transition rate limit consistency,
-  * emergency override requirements,
+  * transition rate consistency,
+  * Emergency Override requirements,
   * regulation status consistency.
 * Yajirobe Regulation Layer documentation.
 
@@ -75,7 +259,7 @@ The project is currently in an experimental pre-release stage.
 
 v0.4 introduces restorative regulation without attempting to freeze the collective.
 
-The protocol assumes that healthy AI agent collectives may oscillate between:
+The protocol assumes that healthy agent collectives may oscillate between:
 
 * concentration and distribution,
 * activation and rest,
@@ -84,7 +268,7 @@ The protocol assumes that healthy AI agent collectives may oscillate between:
 
 The objective is not permanent equilibrium.
 
-The objective is bounded and recoverable motion.
+The objective is bounded, recoverable motion.
 
 ### Yajirobe Principle
 
@@ -98,56 +282,23 @@ It may temporarily leave its preferred operating region.
 
 The critical question is whether it can return without collapse.
 
-The Yajirobe Regulation Layer therefore regulates:
-
-* when movement may begin,
-* when movement should continue,
-* when repeated movement should be suppressed,
-* when old pressure should decay,
-* when recovery force should increase.
+> Sway, but do not fall.
 
 ### Boundary
 
-v0.4 regulates oscillation but does not yet complete broader field-memory integration.
+v0.4 regulates movement but does not yet complete Field Memory and Civilization OS integration.
 
-The following remain outside the current release:
+Those connections are introduced in v0.5.
 
-* full Field Trace propagation,
-* Trace decay and inheritance across formations,
-* Pranayama Bridge integration,
-* Multi-Wing bridge integration,
-* Boundary ecosystem integration,
-* Royalty OS value-flow connection,
-* Civilization OS bridge.
-
-### Next
-
-v0.5 will introduce the **Field Memory and Civilization OS Bridge**.
-
-The next release will connect:
-
-* Kazene Field,
-* Wuxing Phase,
-* Formation Transition,
-* Yajirobe Regulation,
-* Trace Relay,
-* Pranayama,
-* Boundary,
-* Human Gate,
-* Royalty OS.
-
-The field can now signal.
-
-It can sense.
-
-It can move.
-
-It can regulate its movement.
-
-Next, it must remember the wind that moved through it.
-
+---
 
 ## [0.3.0-candidate] - 2026-07-06
+
+### Formation Transition Layer
+
+v0.3 introduces bounded local topology change.
+
+The collective can now move.
 
 ### Added
 
@@ -165,13 +316,17 @@ Next, it must remember the wind that moved through it.
   * expired.
 * Proposal-only initiator authority model.
 * Pressure Observation references as transition evidence.
-* Pressure trigger dimensions and minimum trigger scores.
-* Source and target formation declaration.
+* Pressure trigger dimensions.
+* Minimum trigger scores.
+* Source formation declaration.
+* Target formation declaration.
 * Local transition scope.
 * Maximum participant boundary.
 * Minimum participation requirement.
-* Accepted, declined, and pending participation states.
-* Quorum state declaration.
+* Accepted participation state.
+* Declined participation state.
+* Pending participation state.
+* Quorum declaration.
 * Bounded local execution modes.
 * Reversible transition declaration.
 * Rollback formation support.
@@ -197,21 +352,26 @@ Next, it must remember the wind that moved through it.
 
 v0.3 introduces collective movement without requiring permanent command.
 
-A transition initiator may propose a formation change but does not become the permanent controller of participating agents.
+A transition initiator may propose a formation change.
 
-Local agents may accept, decline, delay, or ignore a proposal.
+The initiator does not automatically become the controller of participating agents.
 
-The protocol uses:
+Local agents may:
 
-**Local Minimum Viable Coordination**
+* accept,
+* decline,
+* delay,
+* ignore.
 
-rather than global consensus.
+The protocol introduces:
+
+> **Local Minimum Viable Coordination**
 
 A local problem should be handled by the smallest sufficient local group whenever practical.
 
 ### Formation Vocabulary
 
-v0.3 supports transitions among:
+v0.3 supports:
 
 * UNFORMED,
 * SCATTER,
@@ -224,9 +384,9 @@ v0.3 supports transitions among:
 
 ### Temporary Centers
 
-Temporary coordination centers are explicitly permitted.
+Temporary centers are explicitly allowed.
 
-However, a Temporary Pivot must remain:
+A Temporary Pivot must remain:
 
 * purpose-bound,
 * scope-limited,
@@ -240,29 +400,27 @@ It prevents temporary centers from silently becoming permanent architecture.
 
 ### Boundary
 
-v0.3 allows bounded movement but does not yet regulate oscillation frequency.
+v0.3 allows movement but does not yet regulate repeated oscillation.
 
-The release does not yet define:
+Mechanisms such as:
 
 * hysteresis,
 * cooldown,
 * minimum dwell time,
 * pressure decay,
-* adaptive equilibrium bands,
-* repeated transition suppression.
+* transition rate limits,
 
-### Next
+are introduced in v0.4.
 
-v0.4 will introduce the **Yajirobe Regulation Layer**.
-
-The next release will regulate how often and how far the collective may oscillate between concentration and dispersion.
-
-The school can now move.
-
-Next, it must learn not to panic.
-
+---
 
 ## [0.2.0-candidate] - 2026-07-06
+
+### Local Pressure Observation
+
+v0.2 introduces decentralized local pressure sensing.
+
+The Kazene Field moves from simple signaling toward local structural awareness.
 
 ### Added
 
@@ -285,7 +443,7 @@ Next, it must learn not to panic.
   * verification coverage,
   * coordination connectivity,
   * isolated peer ratio.
-* Seven initial pressure dimensions:
+* Seven pressure dimensions:
 
   * concentration pressure,
   * fragmentation pressure,
@@ -294,8 +452,10 @@ Next, it must learn not to panic.
   * verification gap,
   * coordination gap,
   * isolation pressure.
-* Pressure score and level representation.
-* Pressure confidence and evidence fields.
+* Pressure score representation.
+* Pressure level representation.
+* Pressure confidence.
+* Supporting evidence fields.
 * Regulation tendency model:
 
   * toward Yin,
@@ -316,39 +476,40 @@ v0.2 separates observation from interpretation.
 
 `neighborhood_summary` describes what an agent observed.
 
-`pressure_state` describes what the agent inferred from those observations.
+`pressure_state` describes what an agent inferred.
 
-The protocol does not treat local observations as global truth.
+The protocol does not treat local observation as global truth.
 
-Multiple agents may produce different pressure estimates from different semantic neighborhoods.
+Multiple agents may produce different pressure estimates from different neighborhoods.
 
 This is expected behavior.
 
-> The Kazene Field does not need a single observer that knows everything.
+> The Kazene Field does not need one observer that knows everything.
 
 ### Boundary
 
-v0.2 remains an observation and estimation layer.
+v0.2 observes and estimates.
 
-It does not yet execute formation transitions automatically.
+It does not execute formation changes.
 
-Automatic movement between SCATTER, FORAGE, CLUSTER, RING, BRIDGE, TEMPORARY_PIVOT, and RECOVERY remains outside the scope of this release.
+Automatic topology change is introduced in v0.3.
 
-### Next
-
-v0.3 will introduce the **Formation Transition Layer**.
-
-The next release will define how agents and local groups may propose, negotiate, record, and execute bounded topology changes based on local pressure observations.
-
+---
 
 ## [0.1.0-candidate] - 2026-07-06
+
+### Field State Beacon
+
+v0.1 introduces the first protocol primitive of the Kazene Wuxing Field Protocol.
+
+The field begins with a signal.
 
 ### Added
 
 * Initial Field State Beacon specification.
-* JSON Schema for machine-readable beacon validation.
-* YAML example for a locally emitted agent field state.
-* Dynamic Wuxing phase potential model:
+* JSON Schema for machine-readable Beacon validation.
+* YAML example for locally emitted agent state.
+* Dynamic Wuxing phase model:
 
   * WOOD,
   * FIRE,
@@ -382,10 +543,10 @@ The next release will define how agents and local groups may propose, negotiate,
   * RECOVERY.
 * Trace reference support.
 * Boundary declaration fields.
-* TTL-based beacon expiration.
+* TTL-based Beacon expiration.
 * Neighborhood-hop propagation scope.
 * Python validation script.
-* Custom validation for Wuxing potential sum.
+* Custom validation for Wuxing potential normalization.
 * GitHub Actions validation workflow.
 * Initial design principles documentation.
 
@@ -393,10 +554,20 @@ The next release will define how agents and local groups may propose, negotiate,
 
 v0.1 intentionally does not define centralized collective optimization.
 
-The release establishes the minimum communication primitive required for decentralized local sensing:
+It establishes the minimum communication primitive required for decentralized local sensing:
 
 > An agent can describe its current functional phase, operational pressure, local observations, formation state, and governance boundary without depending on a permanent global coordinator.
 
-### Next
+The Beacon is not a command.
 
-v0.2 will introduce the Local Pressure Observation layer for estimating concentration, fragmentation, homogeneity, overheat, verification, coordination, and isolation pressures from local neighborhood information.
+It is a signal of presence.
+
+### Next Step
+
+v0.2 introduces local pressure observation.
+
+v0.1 allows agents to say:
+
+> I am here, and this is my current state.
+
+The Kazene Field begins with the first signal.
