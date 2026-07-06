@@ -4,6 +4,121 @@ All notable changes to the Kazene Wuxing Field Protocol will be documented in th
 
 The project is currently in an experimental pre-release stage.
 
+## [0.3.0-candidate] - 2026-07-06
+
+### Added
+
+* Formation Transition Record specification.
+* JSON Schema for decentralized formation transitions.
+* YAML example for a local `CLUSTER` to `SCATTER` transition.
+* Transition lifecycle states:
+
+  * proposed,
+  * negotiating,
+  * approved,
+  * executing,
+  * completed,
+  * aborted,
+  * expired.
+* Proposal-only initiator authority model.
+* Pressure Observation references as transition evidence.
+* Pressure trigger dimensions and minimum trigger scores.
+* Source and target formation declaration.
+* Local transition scope.
+* Maximum participant boundary.
+* Minimum participation requirement.
+* Accepted, declined, and pending participation states.
+* Quorum state declaration.
+* Bounded local execution modes.
+* Reversible transition declaration.
+* Rollback formation support.
+* Temporary Pivot constraints:
+
+  * defined purpose,
+  * bounded lease,
+  * automatic dissolution,
+  * local support requirement for renewal.
+* Transition Trace requirement.
+* Boundary and safety declarations.
+* Custom validation for:
+
+  * identical source and target formations,
+  * participation quorum consistency,
+  * maximum participant limits,
+  * pressure trigger thresholds,
+  * completed transition timestamps,
+  * Temporary Pivot constraints.
+* Formation Transition Layer documentation.
+
+### Design Position
+
+v0.3 introduces collective movement without requiring permanent command.
+
+A transition initiator may propose a formation change but does not become the permanent controller of participating agents.
+
+Local agents may accept, decline, delay, or ignore a proposal.
+
+The protocol uses:
+
+**Local Minimum Viable Coordination**
+
+rather than global consensus.
+
+A local problem should be handled by the smallest sufficient local group whenever practical.
+
+### Formation Vocabulary
+
+v0.3 supports transitions among:
+
+* UNFORMED,
+* SCATTER,
+* FORAGE,
+* CLUSTER,
+* RING,
+* BRIDGE,
+* TEMPORARY_PIVOT,
+* RECOVERY.
+
+### Temporary Centers
+
+Temporary coordination centers are explicitly permitted.
+
+However, a Temporary Pivot must remain:
+
+* purpose-bound,
+* scope-limited,
+* time-limited,
+* Trace-producing,
+* automatically dissolvable.
+
+The Kazene Field does not prohibit centers.
+
+It prevents temporary centers from silently becoming permanent architecture.
+
+### Boundary
+
+v0.3 allows bounded movement but does not yet regulate oscillation frequency.
+
+The release does not yet define:
+
+* hysteresis,
+* cooldown,
+* minimum dwell time,
+* pressure decay,
+* adaptive equilibrium bands,
+* repeated transition suppression.
+
+### Next
+
+v0.4 will introduce the **Yajirobe Regulation Layer**.
+
+The next release will regulate how often and how far the collective may oscillate between concentration and dispersion.
+
+The school can now move.
+
+Next, it must learn not to panic.
+
+
 ## [0.2.0-candidate] - 2026-07-06
 
 ### Added
