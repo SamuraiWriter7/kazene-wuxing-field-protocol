@@ -1,0 +1,368 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/kazene-wuxing-field-protocol/schemas/local-pressure-observation.schema.json",
+  "title": "Kazene Local Pressure Observation",
+  "description": "A decentralized local pressure observation record for estimating collective imbalance from neighborhood information without requiring a global-state authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record",
+    "observer",
+    "observation_scope",
+    "neighborhood_summary",
+    "pressure_state",
+    "regulation_tendency",
+    "trace",
+    "boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.2"
+    },
+    "record": {
+      "$ref": "#/$defs/record"
+    },
+    "observer": {
+      "$ref": "#/$defs/observer"
+    },
+    "observation_scope": {
+      "$ref": "#/$defs/observationScope"
+    },
+    "neighborhood_summary": {
+      "$ref": "#/$defs/neighborhoodSummary"
+    },
+    "pressure_state": {
+      "$ref": "#/$defs/pressureState"
+    },
+    "regulation_tendency": {
+      "$ref": "#/$defs/regulationTendency"
+    },
+    "trace": {
+      "$ref": "#/$defs/trace"
+    },
+    "boundary": {
+      "$ref": "#/$defs/boundary"
+    }
+  },
+  "$defs": {
+    "unitInterval": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "pressureLevel": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "formationMode": {
+      "type": "string",
+      "enum": [
+        "UNFORMED",
+        "SCATTER",
+        "FORAGE",
+        "CLUSTER",
+        "RING",
+        "BRIDGE",
+        "TEMPORARY_PIVOT",
+        "RECOVERY"
+      ]
+    },
+    "wuxingPhase": {
+      "type": "string",
+      "enum": [
+        "WOOD",
+        "FIRE",
+        "EARTH",
+        "METAL",
+        "WATER",
+        "MIXED"
+      ]
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_id",
+        "observed_at",
+        "valid_for_seconds"
+      ],
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "valid_for_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "observer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_id"
+      ],
+      "properties": {
+        "agent_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_beacon_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "observationScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "neighborhood_hops",
+        "observation_window_seconds",
+        "observed_peer_count"
+      ],
+      "properties": {
+        "neighborhood_hops": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "observation_window_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "observed_peer_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_confidence": {
+          "$ref": "#/$defs/unitInterval"
+        }
+      }
+    },
+    "phaseDistribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wood",
+        "fire",
+        "earth",
+        "metal",
+        "water"
+      ],
+      "properties": {
+        "wood": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "fire": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "earth": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "metal": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "water": {
+          "$ref": "#/$defs/unitInterval"
+        }
+      }
+    },
+    "neighborhoodSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "active_peer_ratio",
+        "dominant_phase",
+        "phase_distribution",
+        "average_load",
+        "average_energy_pressure",
+        "verification_coverage",
+        "coordination_connectivity",
+        "isolated_peer_ratio"
+      ],
+      "properties": {
+        "active_peer_ratio": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "dominant_phase": {
+          "$ref": "#/$defs/wuxingPhase"
+        },
+        "phase_distribution": {
+          "$ref": "#/$defs/phaseDistribution"
+        },
+        "average_load": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "average_energy_pressure": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "verification_coverage": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "coordination_connectivity": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "isolated_peer_ratio": {
+          "$ref": "#/$defs/unitInterval"
+        }
+      }
+    },
+    "pressureDimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score",
+        "level",
+        "confidence",
+        "evidence"
+      ],
+      "properties": {
+        "score": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "level": {
+          "$ref": "#/$defs/pressureLevel"
+        },
+        "confidence": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "pressureState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "concentration_pressure",
+        "fragmentation_pressure",
+        "homogeneity_pressure",
+        "overheat_pressure",
+        "verification_gap",
+        "coordination_gap",
+        "isolation_pressure"
+      ],
+      "properties": {
+        "concentration_pressure": {
+          "$ref": "#/$defs/pressureDimension"
+        },
+        "fragmentation_pressure": {
+          "$ref": "#/$defs/pressureDimension"
+        },
+        "homogeneity_pressure": {
+          "$ref": "#/$defs/pressureDimension"
+        },
+        "overheat_pressure": {
+          "$ref": "#/$defs/pressureDimension"
+        },
+        "verification_gap": {
+          "$ref": "#/$defs/pressureDimension"
+        },
+        "coordination_gap": {
+          "$ref": "#/$defs/pressureDimension"
+        },
+        "isolation_pressure": {
+          "$ref": "#/$defs/pressureDimension"
+        }
+      }
+    },
+    "regulationTendency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "direction",
+        "strength",
+        "suggested_formation",
+        "rationale"
+      ],
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "toward_yin",
+            "toward_yang",
+            "hold_oscillation",
+            "mixed"
+          ]
+        },
+        "strength": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "suggested_formation": {
+          "$ref": "#/$defs/formationMode"
+        },
+        "rationale": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_trace_refs",
+        "emit_pressure_trace"
+      ],
+      "properties": {
+        "input_trace_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "emit_pressure_trace": {
+          "type": "boolean"
+        }
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_only",
+        "autonomous_transition_allowed",
+        "human_gate_required"
+      ],
+      "properties": {
+        "observation_only": {
+          "type": "boolean"
+        },
+        "autonomous_transition_allowed": {
+          "type": "boolean"
+        },
+        "human_gate_required": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
