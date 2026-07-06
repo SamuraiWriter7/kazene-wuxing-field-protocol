@@ -1,0 +1,449 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/kazene-wuxing-field-protocol/schemas/field-memory-bridge-record.schema.json",
+  "title": "Kazene Field Memory Bridge Record",
+  "description": "A record for preserving local field memory and bridging Kazene field events to Trace Relay, Pranayama, Multi-Wing, Boundary, Human Gate, and Royalty OS.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record",
+    "source_context",
+    "field_memory",
+    "wuxing_residue",
+    "propagation",
+    "lineage",
+    "bridge_routes",
+    "value_flow",
+    "governance"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.5"
+    },
+    "record": {
+      "$ref": "#/$defs/record"
+    },
+    "source_context": {
+      "$ref": "#/$defs/sourceContext"
+    },
+    "field_memory": {
+      "$ref": "#/$defs/fieldMemory"
+    },
+    "wuxing_residue": {
+      "$ref": "#/$defs/wuxingResidue"
+    },
+    "propagation": {
+      "$ref": "#/$defs/propagation"
+    },
+    "lineage": {
+      "$ref": "#/$defs/lineage"
+    },
+    "bridge_routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/bridgeRoute"
+      },
+      "minItems": 1
+    },
+    "value_flow": {
+      "$ref": "#/$defs/valueFlow"
+    },
+    "governance": {
+      "$ref": "#/$defs/governance"
+    }
+  },
+  "$defs": {
+    "unitInterval": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "signedInterval": {
+      "type": "number",
+      "minimum": -1.0,
+      "maximum": 1.0
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_id",
+        "created_at",
+        "ttl_seconds",
+        "status"
+      ],
+      "properties": {
+        "memory_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ttl_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "observed",
+            "propagating",
+            "bridging",
+            "retained",
+            "archived",
+            "expired"
+          ]
+        }
+      }
+    },
+    "sourceContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "beacon_refs",
+        "pressure_observation_refs",
+        "formation_transition_refs",
+        "regulation_refs"
+      ],
+      "properties": {
+        "beacon_refs": {
+          "$ref": "#/$defs/referenceArray"
+        },
+        "pressure_observation_refs": {
+          "$ref": "#/$defs/referenceArray"
+        },
+        "formation_transition_refs": {
+          "$ref": "#/$defs/referenceArray"
+        },
+        "regulation_refs": {
+          "$ref": "#/$defs/referenceArray"
+        }
+      }
+    },
+    "referenceArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "fieldMemory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_type",
+        "summary",
+        "observed_effects",
+        "residual_needs",
+        "confidence",
+        "persistence"
+      ],
+      "properties": {
+        "memory_type": {
+          "type": "string",
+          "enum": [
+            "pressure_residue",
+            "formation_residue",
+            "regulation_residue",
+            "recovery_signal",
+            "value_signal",
+            "mixed"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_effects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "residual_needs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "confidence": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "persistence": {
+          "type": "string",
+          "enum": [
+            "ephemeral",
+            "retained",
+            "archival"
+          ]
+        }
+      }
+    },
+    "phaseDistribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wood",
+        "fire",
+        "earth",
+        "metal",
+        "water"
+      ],
+      "properties": {
+        "wood": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "fire": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "earth": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "metal": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "water": {
+          "$ref": "#/$defs/unitInterval"
+        }
+      }
+    },
+    "wuxingResidue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phase_distribution",
+        "yin_yang_residue"
+      ],
+      "properties": {
+        "phase_distribution": {
+          "$ref": "#/$defs/phaseDistribution"
+        },
+        "yin_yang_residue": {
+          "$ref": "#/$defs/signedInterval"
+        }
+      }
+    },
+    "decayPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "half_life_seconds"
+      ],
+      "properties": {
+        "model": {
+          "type": "string",
+          "enum": [
+            "none",
+            "linear",
+            "exponential"
+          ]
+        },
+        "half_life_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "propagation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "radius_hops",
+        "ttl_seconds",
+        "decay",
+        "relay_required"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "none",
+            "local",
+            "n_hop",
+            "cluster_bridge"
+          ]
+        },
+        "radius_hops": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ttl_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "decay": {
+          "$ref": "#/$defs/decayPolicy"
+        },
+        "relay_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parent_trace_refs",
+        "root_trace_ref",
+        "mutation_type"
+      ],
+      "properties": {
+        "parent_trace_refs": {
+          "$ref": "#/$defs/referenceArray"
+        },
+        "root_trace_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mutation_type": {
+          "type": "string",
+          "enum": [
+            "origin",
+            "inherited",
+            "transformed",
+            "compressed",
+            "merged",
+            "split"
+          ]
+        }
+      }
+    },
+    "bridgeRoute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "intent",
+        "mode",
+        "status"
+      ],
+      "properties": {
+        "target": {
+          "type": "string",
+          "enum": [
+            "TRACE_RELAY",
+            "PRANAYAMA",
+            "MULTI_WING",
+            "BOUNDARY",
+            "HUMAN_GATE",
+            "ROYALTY_OS"
+          ]
+        },
+        "intent": {
+          "type": "string",
+          "enum": [
+            "preserve_trace",
+            "relay_trace",
+            "merge_lineage",
+            "cool_compute",
+            "pause_cycle",
+            "compress_memory",
+            "resume_cycle",
+            "dispatch_wing",
+            "request_analysis",
+            "request_verification",
+            "request_bridge",
+            "boundary_review",
+            "enforce_boundary",
+            "request_human_review",
+            "register_value_event",
+            "allocate_value"
+          ]
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "advisory",
+            "required",
+            "gated"
+          ]
+        },
+        "payload_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "accepted",
+            "rejected",
+            "completed"
+          ]
+        }
+      }
+    },
+    "valueFlow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_value",
+        "value_event_ref",
+        "royalty_hook_required",
+        "origin_trace_refs"
+      ],
+      "properties": {
+        "generated_value": {
+          "type": "boolean"
+        },
+        "value_event_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "royalty_hook_required": {
+          "type": "boolean"
+        },
+        "origin_trace_refs": {
+          "$ref": "#/$defs/referenceArray"
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "boundary_check_passed",
+        "human_gate_required",
+        "autonomous_bridge_allowed",
+        "privacy_scope"
+      ],
+      "properties": {
+        "boundary_check_passed": {
+          "type": "boolean"
+        },
+        "human_gate_required": {
+          "type": "boolean"
+        },
+        "autonomous_bridge_allowed": {
+          "type": "boolean"
+        },
+        "privacy_scope": {
+          "type": "string",
+          "enum": [
+            "agent_local",
+            "neighborhood",
+            "cluster",
+            "network"
+          ]
+        }
+      }
+    }
+  }
+}
