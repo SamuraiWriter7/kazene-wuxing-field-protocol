@@ -393,6 +393,262 @@ ValidationFunction = Callable[
     list[str],
 ]
 
+def validate_yajirobe_regulation(
+    instance: dict[str, Any],
+) -> list[str]:
+    errors: list[str] = []
+
+    oscillation_state = instance.get(
+        "oscillation_state",
+        {},
+    )
+
+    balance_band = oscillation_state.get(
+        "balance_band",
+        {},
+    )
+
+    preferred_min = balance_band.get(
+        "preferred_min"
+    )
+
+    preferred_max = balance_band.get(
+        "preferred_max"
+    )
+
+    soft_limit_min = balance_band.get(
+        "soft_limit_min"
+    )
+
+    soft_limit_max = balance_band.get(
+        "soft_limit_max"
+    )
+
+    values = (
+        preferred_min,
+        preferred_max,
+        soft_limit_min,
+        soft_limit_max,
+    )
+
+    if all(
+        isinstance(value, (int, float))
+        for value in values
+    ):
+        if preferred_min > preferred_max:
+            errors.append(
+                "oscillation_state.balance_band."
+                "preferred_min must not exceed "
+                "preferred_max"
+            )
+
+        if soft_limit_min > soft_limit_max:
+            errors.append(
+                "oscillation_state.balance_band."
+                "soft_limit_min must not exceed "
+                "soft_limit_max"
+            )
+
+        if soft_limit_min > preferred_min:
+            errors.append(
+                "soft_limit_min must be less than or "
+                "equal to preferred_min"
+            )
+
+        if preferred_max > soft_limit_max:
+            errors.append(
+                "preferred_max must be less than or "
+                "equal to soft_limit_max"
+            )
+
+    axis_position = oscillation_state.get(
+        "axis_position"
+    )
+
+    excursion_status = oscillation_state.get(
+        "excursion_status"
+    )
+
+    if (
+        isinstance(axis_position, (int, float))
+        and all(
+            isinstance(value, (int, float))
+            for value in values
+        )
+    ):
+        if (
+            preferred_min
+            <= axis_position
+            <= preferred_max
+        ):
+            expected_excursion = (
+                "within_preferred_band"
+            )
+
+        elif (
+            soft_limit_min
+            <= axis_position
+            <= soft_limit_max
+        ):
+            expected_excursion = (
+                "soft_excursion"
+            )
+
+        else:
+            expected_excursion = (
+                "hard_excursion"
+            )
+
+        if excursion_status != expected_excursion:
+            errors.append(
+                "oscillation_state.excursion_status "
+                f"must be '{expected_excursion}' "
+                f"for axis_position {axis_position}"
+            )
+
+    policy = instance.get(
+        "regulation_policy",
+        {},
+    )
+
+    hysteresis = policy.get(
+        "hysteresis",
+        {},
+    )
+
+    entry_score = hysteresis.get(
+        "entry_score"
+    )
+
+    release_score = hysteresis.get(
+        "release_score"
+    )
+
+    if (
+        isinstance(entry_score, (int, float))
+        and isinstance(
+            release_score,
+            (int, float),
+        )
+        and release_score >= entry_score
+    ):
+        errors.append(
+            "regulation_policy.hysteresis."
+            "release_score must be lower than "
+            "entry_score"
+        )
+
+    formation_history = instance.get(
+        "formation_history",
+        {},
+    )
+
+    recent_transition_count = (
+        formation_history.get(
+            "recent_transition_count"
+        )
+    )
+
+    transition_rate_limit = policy.get(
+        "transition_rate_limit",
+        {},
+    )
+
+    maximum_transitions = (
+        transition_rate_limit.get(
+            "maximum_transitions"
+        )
+    )
+
+    decision = instance.get(
+        "regulation_decision",
+        {},
+    )
+
+    action = decision.get("action")
+
+    if (
+        isinstance(
+            recent_transition_count,
+            int,
+        )
+        and isinstance(
+            maximum_transitions,
+            int,
+        )
+        and recent_transition_count
+        >= maximum_transitions
+        and action == "allow_transition"
+    ):
+        errors.append(
+            "regulation_decision.action cannot be "
+            "'allow_transition' when the transition "
+            "rate limit has been reached"
+        )
+
+    emergency_override = instance.get(
+        "emergency_override",
+        {},
+    )
+
+    override_active = emergency_override.get(
+        "active"
+    )
+
+    override_reason = emergency_override.get(
+        "reason"
+    )
+
+    override_expires_at = (
+        emergency_override.get(
+            "expires_at"
+        )
+    )
+
+    if override_active is True:
+        if not override_reason:
+            errors.append(
+                "emergency_override.reason is required "
+                "when emergency override is active"
+            )
+
+        if not override_expires_at:
+            errors.append(
+                "emergency_override.expires_at is "
+                "required when emergency override "
+                "is active"
+            )
+
+    regulation = instance.get(
+        "regulation",
+        {},
+    )
+
+    regulation_status = regulation.get(
+        "status"
+    )
+
+    if (
+        regulation_status == "emergency_override"
+        and override_active is not True
+    ):
+        errors.append(
+            "emergency_override.active must be true "
+            "when regulation.status is "
+            "'emergency_override'"
+        )
+
+    if (
+        action == "emergency_override"
+        and override_active is not True
+    ):
+        errors.append(
+            "emergency_override.active must be true "
+            "when regulation_decision.action is "
+            "'emergency_override'"
+        )
+
+    return errors
 
 VALIDATION_TARGETS: list[
     tuple[
@@ -432,6 +688,16 @@ VALIDATION_TARGETS: list[
         / "formation-transition-record.example.yaml",
         validate_formation_transition,
     ),
+    (
+    "Kazene Yajirobe Regulation Record",
+    ROOT
+    / "schemas"
+    / "yajirobe-regulation-record.schema.json",
+    ROOT
+    / "examples"
+    / "yajirobe-regulation-record.example.yaml",
+    validate_yajirobe_regulation,
+),
 ]
 
 
