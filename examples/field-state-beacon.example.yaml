@@ -1,0 +1,50 @@
+schema_version: "0.1"
+
+beacon:
+  beacon_id: "beacon-agent-017-0001"
+  emitted_at: "2026-07-06T00:00:00Z"
+  ttl_seconds: 60
+  neighborhood_hops: 2
+
+agent:
+  agent_id: "agent-017"
+  agent_role: "adaptive-analysis-node"
+  runtime_class: "local-agent-runtime"
+
+phase_state:
+  wuxing_potential:
+    wood: 0.20
+    fire: 0.45
+    earth: 0.15
+    metal: 0.10
+    water: 0.10
+
+  yin_yang_tendency: 0.35
+
+operational_state:
+  activity: "active"
+  load: 0.78
+  confidence: 0.82
+  energy_pressure: 0.73
+
+local_observation:
+  peer_density: "high"
+  same_phase_density: "high"
+  coordination_gap: "low"
+  verification_gap: "medium"
+  overheat_pressure: "high"
+  isolation_pressure: "low"
+
+formation:
+  current_mode: "CLUSTER"
+  preferred_transition: "SCATTER"
+  transition_reason: "High FIRE density and elevated local overheat pressure."
+
+trace:
+  trace_available: true
+  last_trace_ref: "trace-0182"
+
+boundary:
+  autonomous_transition_allowed: true
+  human_gate_required: false
+  trace_receipt_required: true
