@@ -469,4 +469,110 @@ v0.2 gave it pressure.
 
 v0.3 gives the collective movement.
 
+## v0.4 — Yajirobe Regulation Layer
+
+Version 0.4 introduces oscillation regulation for the Kazene Field.
+
+The collective can already:
+
+1. emit local state,
+2. sense local pressure,
+3. change formation.
+
+v0.4 regulates the timing and amplitude of those changes.
+
+The goal is not static equilibrium.
+
+The goal is recoverable oscillation.
+
+### Core Regulation Mechanisms
+
+The Yajirobe Regulation Layer introduces:
+
+* preferred oscillation bands,
+* soft limits,
+* excursion detection,
+* hysteresis,
+* cooldown periods,
+* minimum dwell time,
+* pressure decay,
+* transition rate limiting,
+* recovery force,
+* emergency override.
+
+### Regulation Flow
+
+```text
+Field State
+    ↓
+Local Pressure
+    ↓
+Formation Transition
+    ↓
+Oscillation Evaluation
+    ↓
+Yajirobe Regulation
+    ↓
+┌──────────┬────────────┬───────────┐
+│   HOLD   │   ALLOW    │ SUPPRESS  │
+└──────────┴────────────┴───────────┘
+                 ↓
+         RECOVERY / OVERRIDE
+```
+
+### Dynamic Balance
+
+The protocol does not require the collective to remain permanently at the midpoint.
+
+Temporary movement toward Yin or Yang is valid.
+
+The protocol distinguishes:
+
+* `within_preferred_band`
+* `soft_excursion`
+* `hard_excursion`
+
+A Soft Excursion may be observed without immediate correction.
+
+A Hard Excursion may trigger stronger restorative action.
+
+### Hysteresis
+
+Different activation and release thresholds prevent repeated switching near one boundary.
+
+### Cooldown
+
+A formation transition may be followed by a limited period during which further topology changes are suppressed.
+
+### Minimum Dwell Time
+
+A new formation should normally remain active long enough for its effects to become observable.
+
+### Pressure Decay
+
+Old observations may gradually lose influence unless renewed.
+
+### Recovery Force
+
+Excessive excursions may generate a bounded tendency toward a healthier operating region.
+
+Recovery does not require immediate return to zero.
+
+### Emergency Override
+
+Exceptional conditions may bypass normal oscillation constraints, but emergency authority must remain explicit, bounded, and temporary.
+
+### Design Principle
+
+> The Yajirobe does not prevent movement.
+
+> It allows the collective to lean without allowing it to fall.
+
+v0.1 gave the Kazene Field signals.
+
+v0.2 gave it pressure.
+
+v0.3 gave it movement.
+
+v0.4 gives it restorative balance.
 
