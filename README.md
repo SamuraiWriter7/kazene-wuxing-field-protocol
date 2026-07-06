@@ -299,3 +299,74 @@ The goal is to create a collective that can change continuously without collapsi
 > Never allow one temporary state to become permanent by default.
 
 The Kazene Field begins not with a ruler, but with a signal.
+
+## v0.2 — Local Pressure Observation
+
+Version 0.2 introduces decentralized local pressure sensing.
+
+An agent may observe a bounded neighborhood and estimate structural imbalance without requiring a permanent global-state authority.
+
+The initial pressure dimensions are:
+
+* concentration pressure,
+* fragmentation pressure,
+* homogeneity pressure,
+* overheat pressure,
+* verification gap,
+* coordination gap,
+* isolation pressure.
+
+A Local Pressure Observation separates:
+
+1. **Neighborhood Summary** — what the observer detected.
+2. **Pressure State** — what the observer inferred.
+3. **Regulation Tendency** — which structural direction may be appropriate.
+
+This distinction is fundamental.
+
+> Observation is not interpretation, and local interpretation is not global truth.
+
+Each pressure estimate includes:
+
+* a normalized score,
+* a pressure level,
+* confidence,
+* supporting evidence.
+
+Possible regulatory tendencies include:
+
+* `toward_yin`
+* `toward_yang`
+* `hold_oscillation`
+* `mixed`
+
+These tendencies remain advisory in v0.2.
+
+The protocol does not yet execute formation transitions automatically.
+
+### Pressure Flow
+
+```text
+Field State Beacons
+        ↓
+Bounded Neighborhood Observation
+        ↓
+Neighborhood Summary
+        ↓
+Local Pressure Estimation
+        ↓
+Regulation Tendency
+        ↓
+Trace / Future Formation Decision
+```
+
+The Kazene Field does not require one observer to know everything.
+
+Different neighborhoods may produce different pressure observations.
+
+This plurality is expected.
+
+v0.1 allowed agents to signal their presence.
+
+v0.2 allows agents to feel the local field.
+
