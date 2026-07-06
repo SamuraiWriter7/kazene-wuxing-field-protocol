@@ -370,3 +370,103 @@ v0.1 allowed agents to signal their presence.
 
 v0.2 allows agents to feel the local field.
 
+## v0.3 — Formation Transition Layer
+
+Version 0.3 introduces bounded local formation transitions.
+
+Agents may now move from pressure observation toward collective topology change.
+
+The transition flow is:
+
+```text
+Field State Beacon
+        ↓
+Local Pressure Observation
+        ↓
+Formation Transition Proposal
+        ↓
+Local Participation
+        ↓
+Boundary Check
+        ↓
+Bounded Execution
+        ↓
+Trace
+```
+
+The protocol does not require a permanent commander.
+
+A transition initiator has proposal authority only.
+
+Nearby agents may:
+
+* accept,
+* decline,
+* remain pending,
+* ignore the proposal.
+
+A local transition may proceed when its minimum participation condition is satisfied and its Boundary conditions permit execution.
+
+### Formation Modes
+
+The v0.3 transition layer supports:
+
+* `UNFORMED`
+* `SCATTER`
+* `FORAGE`
+* `CLUSTER`
+* `RING`
+* `BRIDGE`
+* `TEMPORARY_PIVOT`
+* `RECOVERY`
+
+### Local Minimum Viable Coordination
+
+The protocol does not require global consensus for local topology changes.
+
+Only agents relevant to the local problem need to participate.
+
+This allows a large collective to contain many simultaneous local formation transitions.
+
+### Temporary Pivots
+
+Temporary centers are allowed.
+
+Permanent centers are not required.
+
+A `TEMPORARY_PIVOT` must include:
+
+* a defined purpose,
+* limited lease duration,
+* automatic dissolution,
+* local support for renewal.
+
+> No Fixed Center. Dynamic Temporary Pivots.
+
+### Reversibility
+
+Formation transitions may declare a rollback formation.
+
+This allows local groups to return to a previous topology when a transition creates new instability.
+
+### Design Boundary
+
+v0.3 enables movement but does not yet regulate repeated oscillation.
+
+The protocol does not yet define:
+
+* hysteresis,
+* cooldown,
+* minimum dwell time,
+* pressure decay,
+* oscillation bands.
+
+Those mechanisms will be introduced in v0.4.
+
+v0.1 gave the Kazene Field signals.
+
+v0.2 gave it pressure.
+
+v0.3 gives the collective movement.
+
+
