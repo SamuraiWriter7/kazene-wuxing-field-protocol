@@ -1,0 +1,87 @@
+schema_version: "0.4"
+
+regulation:
+  regulation_id: "yajirobe-regulation-0001"
+  evaluated_at: "2026-07-06T01:34:30Z"
+  valid_for_seconds: 90
+  status: "cooldown"
+
+source_context:
+  pressure_observation_refs:
+    - "pressure-observation-0001"
+
+  formation_transition_refs:
+    - "formation-transition-0001"
+
+oscillation_state:
+  axis_position: -0.62
+  direction: "toward_yin"
+  oscillation_velocity: 0.58
+
+  balance_band:
+    preferred_min: -0.30
+    preferred_max: 0.30
+    soft_limit_min: -0.75
+    soft_limit_max: 0.75
+
+  excursion_status: "soft_excursion"
+
+regulation_policy:
+  hysteresis:
+    enabled: true
+    entry_score: 0.75
+    release_score: 0.45
+
+  cooldown_seconds: 180
+  minimum_dwell_seconds: 300
+  maximum_excursion_seconds: 900
+
+  recovery_force: 0.54
+
+  pressure_decay:
+    enabled: true
+    model: "exponential"
+    half_life_seconds: 180
+
+  transition_rate_limit:
+    window_seconds: 900
+    maximum_transitions: 3
+
+formation_history:
+  current_formation: "SCATTER"
+  current_formation_since: "2026-07-06T01:32:00Z"
+  previous_formation: "CLUSTER"
+  last_transition_at: "2026-07-06T01:32:00Z"
+  recent_transition_count: 1
+
+regulation_decision:
+  action: "suppress_transition"
+  target_direction: "hold_oscillation"
+  strength: 0.71
+  suggested_formation: null
+
+  rationale:
+    - "The current SCATTER formation has not satisfied minimum dwell time."
+    - "The formation transition remains inside the cooldown period."
+    - "The collective is outside the preferred band but remains inside the soft limit."
+    - "Immediate re-clustering could create transition chatter."
+
+emergency_override:
+  active: false
+  reason: null
+  expires_at: null
+  human_gate_required: false
+
+trace:
+  input_trace_refs:
+    - "trace-0182"
+    - "trace-0183"
+
+  regulation_trace_required: true
+  output_trace_ref: null
+
+boundary:
+  automatic_regulation_allowed: true
+  human_gate_required: false
+  safety_check_passed: true
+  risk_level: "low"
