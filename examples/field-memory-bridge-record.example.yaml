@@ -1,0 +1,118 @@
+schema_version: "0.5"
+
+record:
+  memory_id: "field-memory-0001"
+  created_at: "2026-07-06T02:15:00Z"
+  ttl_seconds: 1800
+  status: "bridging"
+
+source_context:
+  beacon_refs:
+    - "beacon-agent-017-0001"
+
+  pressure_observation_refs:
+    - "pressure-observation-0001"
+
+  formation_transition_refs:
+    - "formation-transition-0001"
+
+  regulation_refs:
+    - "yajirobe-regulation-0001"
+
+field_memory:
+  memory_type: "mixed"
+
+  summary: >
+    A FIRE-dominant local cluster entered elevated concentration,
+    homogeneity, and overheat pressure. The collective transitioned
+    from CLUSTER to SCATTER. An early reverse transition was suppressed
+    by the Yajirobe Regulation Layer.
+
+  observed_effects:
+    - "Local computational density decreased after dispersion."
+    - "Independent execution paths increased."
+    - "Verification coverage remains below the preferred local level."
+
+  residual_needs:
+    - "Increase WATER-oriented cooling behavior."
+    - "Increase METAL-oriented independent verification."
+    - "Preserve the transition rationale for future local decisions."
+
+  confidence: 0.86
+  persistence: "retained"
+
+wuxing_residue:
+  phase_distribution:
+    wood: 0.18
+    fire: 0.34
+    earth: 0.16
+    metal: 0.12
+    water: 0.20
+
+  yin_yang_residue: -0.28
+
+propagation:
+  mode: "n_hop"
+  radius_hops: 2
+  ttl_seconds: 600
+
+  decay:
+    model: "exponential"
+    half_life_seconds: 180
+
+  relay_required: true
+
+lineage:
+  parent_trace_refs:
+    - "trace-0182"
+    - "trace-0183"
+
+  root_trace_ref: "trace-origin-0041"
+  mutation_type: "transformed"
+
+bridge_routes:
+  - target: "TRACE_RELAY"
+    intent: "preserve_trace"
+    mode: "required"
+    payload_ref: "field-memory-0001"
+    status: "completed"
+
+  - target: "PRANAYAMA"
+    intent: "cool_compute"
+    mode: "advisory"
+    payload_ref: "pressure-observation-0001"
+    status: "accepted"
+
+  - target: "MULTI_WING"
+    intent: "request_verification"
+    mode: "advisory"
+    payload_ref: "field-memory-0001"
+    status: "pending"
+
+  - target: "BOUNDARY"
+    intent: "boundary_review"
+    mode: "required"
+    payload_ref: "formation-transition-0001"
+    status: "completed"
+
+  - target: "ROYALTY_OS"
+    intent: "register_value_event"
+    mode: "advisory"
+    payload_ref: "value-event-0042"
+    status: "accepted"
+
+value_flow:
+  generated_value: true
+  value_event_ref: "value-event-0042"
+  royalty_hook_required: true
+
+  origin_trace_refs:
+    - "trace-origin-0041"
+    - "trace-0182"
+    - "trace-0183"
+
+governance:
+  boundary_check_passed: true
+  human_gate_required: false
+  autonomous_bridge_allowed: true
+  privacy_scope: "cluster"
