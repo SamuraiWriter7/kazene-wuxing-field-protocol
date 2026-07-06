@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/kazene-wuxing-field-protocol/schemas/field-state-beacon.schema.json",
+  "title": "Kazene Field State Beacon",
+  "description": "A local state beacon for decentralized AI agent collectives operating in the Kazene Wuxing Field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "beacon",
+    "agent",
+    "phase_state",
+    "operational_state",
+    "local_observation",
+    "formation",
+    "trace",
+    "boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "beacon": {
+      "$ref": "#/$defs/beacon"
+    },
+    "agent": {
+      "$ref": "#/$defs/agent"
+    },
+    "phase_state": {
+      "$ref": "#/$defs/phaseState"
+    },
+    "operational_state": {
+      "$ref": "#/$defs/operationalState"
+    },
+    "local_observation": {
+      "$ref": "#/$defs/localObservation"
+    },
+    "formation": {
+      "$ref": "#/$defs/formation"
+    },
+    "trace": {
+      "$ref": "#/$defs/trace"
+    },
+    "boundary": {
+      "$ref": "#/$defs/boundary"
+    }
+  },
+  "$defs": {
+    "unitInterval": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "pressureLevel": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical",
+        "unknown"
+      ]
+    },
+    "formationMode": {
+      "type": "string",
+      "enum": [
+        "UNFORMED",
+        "SCATTER",
+        "FORAGE",
+        "CLUSTER",
+        "RING",
+        "BRIDGE",
+        "TEMPORARY_PIVOT",
+        "RECOVERY"
+      ]
+    },
+    "beacon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "beacon_id",
+        "emitted_at",
+        "ttl_seconds",
+        "neighborhood_hops"
+      ],
+      "properties": {
+        "beacon_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emitted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ttl_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "neighborhood_hops": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_id"
+      ],
+      "properties": {
+        "agent_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agent_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runtime_class": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "phaseState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wuxing_potential",
+        "yin_yang_tendency"
+      ],
+      "properties": {
+        "wuxing_potential": {
+          "type": "object",
+          "description": "Dynamic Wuxing phase potentials. Implementations should keep the total near 1.0.",
+          "additionalProperties": false,
+          "required": [
+            "wood",
+            "fire",
+            "earth",
+            "metal",
+            "water"
+          ],
+          "properties": {
+            "wood": {
+              "$ref": "#/$defs/unitInterval"
+            },
+            "fire": {
+              "$ref": "#/$defs/unitInterval"
+            },
+            "earth": {
+              "$ref": "#/$defs/unitInterval"
+            },
+            "metal": {
+              "$ref": "#/$defs/unitInterval"
+            },
+            "water": {
+              "$ref": "#/$defs/unitInterval"
+            }
+          }
+        },
+        "yin_yang_tendency": {
+          "type": "number",
+          "minimum": -1.0,
+          "maximum": 1.0,
+          "description": "-1.0 represents a strong Yin tendency, 0.0 an oscillatory midpoint, and 1.0 a strong Yang tendency."
+        }
+      }
+    },
+    "operationalState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "activity",
+        "load",
+        "confidence",
+        "energy_pressure"
+      ],
+      "properties": {
+        "activity": {
+          "type": "string",
+          "enum": [
+            "active",
+            "idle",
+            "cooling",
+            "sleeping",
+            "recovering",
+            "degraded"
+          ]
+        },
+        "load": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "confidence": {
+          "$ref": "#/$defs/unitInterval"
+        },
+        "energy_pressure": {
+          "$ref": "#/$defs/unitInterval"
+        }
+      }
+    },
+    "localObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "peer_density",
+        "same_phase_density",
+        "coordination_gap",
+        "verification_gap",
+        "overheat_pressure",
+        "isolation_pressure"
+      ],
+      "properties": {
+        "peer_density": {
+          "$ref": "#/$defs/pressureLevel"
+        },
+        "same_phase_density": {
+          "$ref": "#/$defs/pressureLevel"
+        },
+        "coordination_gap": {
+          "$ref": "#/$defs/pressureLevel"
+        },
+        "verification_gap": {
+          "$ref": "#/$defs/pressureLevel"
+        },
+        "overheat_pressure": {
+          "$ref": "#/$defs/pressureLevel"
+        },
+        "isolation_pressure": {
+          "$ref": "#/$defs/pressureLevel"
+        }
+      }
+    },
+    "formation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_mode",
+        "preferred_transition"
+      ],
+      "properties": {
+        "current_mode": {
+          "$ref": "#/$defs/formationMode"
+        },
+        "preferred_transition": {
+          "$ref": "#/$defs/formationMode"
+        },
+        "transition_reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trace_available"
+      ],
+      "properties": {
+        "trace_available": {
+          "type": "boolean"
+        },
+        "last_trace_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "autonomous_transition_allowed",
+        "human_gate_required",
+        "trace_receipt_required"
+      ],
+      "properties": {
+        "autonomous_transition_allowed": {
+          "type": "boolean"
+        },
+        "human_gate_required": {
+          "type": "boolean"
+        },
+        "trace_receipt_required": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
