@@ -1,0 +1,81 @@
+schema_version: "0.3"
+
+transition:
+  transition_id: "formation-transition-0001"
+  created_at: "2026-07-06T01:30:00Z"
+  expires_at: "2026-07-06T01:35:00Z"
+  status: "executing"
+
+initiator:
+  agent_id: "agent-017"
+  authority_type: "proposal_only"
+  source_beacon_ref: "beacon-agent-017-0001"
+
+pressure_basis:
+  observation_refs:
+    - "pressure-observation-0001"
+
+  trigger_dimensions:
+    - dimension: "concentration_pressure"
+      score: 0.82
+      minimum_trigger_score: 0.75
+
+    - dimension: "homogeneity_pressure"
+      score: 0.76
+      minimum_trigger_score: 0.75
+
+    - dimension: "overheat_pressure"
+      score: 0.74
+      minimum_trigger_score: 0.70
+
+formation_change:
+  current_mode: "CLUSTER"
+  target_mode: "SCATTER"
+
+  transition_reason:
+    - "Local concentration pressure exceeded the configured trigger."
+    - "FIRE phase dominance created elevated homogeneity pressure."
+    - "Dispersal is expected to reduce local computational heat."
+
+scope:
+  scope_type: "local"
+  neighborhood_hops: 2
+  maximum_participants: 8
+
+participation:
+  minimum_participants: 3
+
+  accepted_agent_ids:
+    - "agent-017"
+    - "agent-021"
+    - "agent-024"
+    - "agent-031"
+
+  declined_agent_ids:
+    - "agent-029"
+
+  pending_agent_ids:
+    - "agent-033"
+
+  quorum_met: true
+
+execution:
+  execution_mode: "coordinated_local"
+  reversible: true
+  rollback_mode: "CLUSTER"
+  started_at: "2026-07-06T01:32:00Z"
+  completed_at: null
+
+trace:
+  input_trace_refs:
+    - "trace-0182"
+    - "trace-0183"
+
+  transition_trace_required: true
+  output_trace_ref: null
+
+boundary:
+  autonomous_execution_allowed: true
+  human_gate_required: false
+  safety_check_passed: true
+  risk_level: "low"
